@@ -5,11 +5,14 @@ flavors:
       name: "MovieMate"
 
     android:
-      applicationId: "com.dev.moviemate"
+      applicationId: "com.voidK.moviemate"
       icon: "assets/images/logo.png"
     ios:
-      bundleId: "com.dev.moviemate"
+      bundleId: "com.voidK.moviemate"
       icon: "assets/images/logo.png"
+
+  # making same config for both development & production as this is just a demo app.
+  # I can also make different firebase projects for different flavors
   production:
     app:
       name: "MovieMate"
