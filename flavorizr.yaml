@@ -1,0 +1,22 @@
+flavors:
+  development:
+    ide: "idea"
+    app:
+      name: "MovieMate"
+
+    android:
+      applicationId: "com.dev.moviemate"
+      icon: "assets/images/logo.png"
+    ios:
+      bundleId: "com.dev.moviemate"
+      icon: "assets/images/logo.png"
+  production:
+    app:
+      name: "MovieMate"
+
+    android:
+      applicationId: "com.voidk.moviemate"
+      icon: "assets/images/logo.png"
+    ios:
+      bundleId: "com.voidk.moviemate"
+      icon: "assets/images/logo.png"
