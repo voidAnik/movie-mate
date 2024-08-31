@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyDgbvD8YiyxXfz1OBoL37m1vpOXPTPpGgQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>959054392027</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.voidK.movieMate</string>
+	<key>PROJECT_ID</key>
+	<string>moviemate-a3d9f</string>
+	<key>STORAGE_BUCKET</key>
+	<string>moviemate-a3d9f.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:959054392027:ios:98c982dd76556f46663afe</string>
+</dict>
+</plist>

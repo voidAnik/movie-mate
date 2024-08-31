@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:959054392027:android:76d89fd461636272663afe",
+        "mobilesdk_app_id": "1:959054392027:android:d02cfe9760e0054c663afe",
         "android_client_info": {
-          "package_name": "com.dev.moviemate"
+          "package_name": "com.voidK.moviemate"
         }
       },
       "oauth_client": [],

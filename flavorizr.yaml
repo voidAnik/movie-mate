@@ -18,8 +18,8 @@ flavors:
       name: "MovieMate"
 
     android:
-      applicationId: "com.voidk.moviemate"
+      applicationId: "com.voidK.moviemate"
       icon: "assets/images/logo.png"
     ios:
-      bundleId: "com.voidk.moviemate"
+      bundleId: "com.voidK.moviemate"
       icon: "assets/images/logo.png"

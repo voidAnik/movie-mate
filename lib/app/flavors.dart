@@ -1,22 +1,23 @@
-enum Flavor {
+// for this project we are using just two environment
+// normally there would be one more environment for staging
+enum FlavorType {
   dev,
   prod,
 }
 
-class F {
-  static Flavor? appFlavor;
+class Flavor {
+  static FlavorType? appFlavor;
 
   static String get name => appFlavor?.name ?? '';
 
   static String get title {
     switch (appFlavor) {
-      case Flavor.dev:
+      case FlavorType.dev:
         return 'MovieMate';
-      case Flavor.prod:
+      case FlavorType.prod:
         return 'MovieMate';
       default:
         return 'title';
     }
   }
-
 }
