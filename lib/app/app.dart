@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_mate/core/language/app_language.dart';
+import 'package:movie_mate/core/theme/theme.dart';
 
 import '../pages/my_home_page.dart';
 import 'flavors.dart';
@@ -19,9 +20,8 @@ class App extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: Flavor.title,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme:AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
         home: const FlavorBanner(
           show: kDebugMode,
           child: MyHomePage(),
@@ -41,7 +41,7 @@ class FlavorBanner extends StatelessWidget {
     return show
         ? Banner(
             location: BannerLocation.topEnd,
-            message: Flavor.name,
+            message: Flavor.appFlavor == FlavorType.development ? 'dev' : 'prod',
             color: Colors.green.withOpacity(0.6),
             textStyle: const TextStyle(
                 fontWeight: FontWeight.w700,

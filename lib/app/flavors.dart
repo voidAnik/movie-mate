@@ -1,8 +1,8 @@
 // for this project we are using just two environment
 // normally there would be one more environment for staging
 enum FlavorType {
-  dev,
-  prod,
+  development,
+  production,
 }
 
 class Flavor {
@@ -12,9 +12,9 @@ class Flavor {
 
   static String get title {
     switch (appFlavor) {
-      case FlavorType.dev:
+      case FlavorType.development:
         return 'MovieMate';
-      case FlavorType.prod:
+      case FlavorType.production:
         return 'MovieMate';
       default:
         return 'title';
