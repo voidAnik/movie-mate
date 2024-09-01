@@ -7,10 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:movie_mate/app/app.dart';
 import 'package:movie_mate/app/firebase_options.dart';
 import 'package:movie_mate/app/flavors.dart';
+import 'package:movie_mate/core/injection/injection_container.dart' as di;
 
 FutureOr<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await _firebaseInit();
+  await di.init();
 
   runApp(const App());
 }

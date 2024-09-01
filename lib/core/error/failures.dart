@@ -10,6 +10,8 @@ abstract class Failure extends Equatable {
 }
 
 class ServerFailure extends Failure {
+  final String error;
+  const ServerFailure({required this.error});
 }
 
 class ApiFailure extends Failure {

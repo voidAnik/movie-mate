@@ -5,8 +5,8 @@ import '../error/failures.dart';
 class ReturnFailure<T> {
   Future<Either<Failure, T>> failure(Exception e) async {
     if (e is ServerException) {
-      return Left(
-          ServerFailure());
+      return const Left(
+          ServerFailure(error: 'SERVER FAILURE'));
     } else if (e is ApiException) {
       return  Left(
           ApiFailure(error: e.error));
