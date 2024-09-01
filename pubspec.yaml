@@ -14,14 +14,53 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.8
+
+  # firebase dependencies
   firebase_core: ^3.4.0
   firebase_crashlytics: ^4.1.0
+
+  # for fonts
+  google_fonts: ^6.2.1
+  # service locator
+  get_it: ^7.7.0
+  # Value equality
+  equatable: ^2.0.5
+  # Functional programming things
+  dartz: ^0.10.1
+  # to check internet connection
+  internet_connection_checker: ^2.0.0
+  # Remote API
+  dio: ^5.6.0
+  pretty_dio_logger: ^1.4.0
+  # for state management
+  flutter_bloc: ^8.1.6
+  # for easy animation
+  flutter_animate: ^4.5.0
+
+  # for local database
+  sqflite: ^2.3.3+1
+  path: 1.9.0 # do not change it pinned
+  path_provider: ^2.1.4
+
+  # to cache network images
+  cached_network_image: ^3.3.1 # if update it conflicts with updated firebase_core
+  # animation
+  animate_do: ^3.3.4
+  # for shimmer effect
+  shimmer: ^3.0.0
+  # for route management
+  go_router: ^14.2.7
+  # to add native splash
+  flutter_native_splash: ^2.4.1
+  # for localization
+  easy_localization: ^3.0.7
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^4.0.0
+  # for different flavor integration
   flutter_flavorizr: ^2.2.3
 
 

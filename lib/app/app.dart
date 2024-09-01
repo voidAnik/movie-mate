@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart' as el;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_mate/core/language/app_language.dart';
 
 import '../pages/my_home_page.dart';
 import 'flavors.dart';
@@ -9,15 +11,21 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: Flavor.title,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const FlavorBanner(
-        show: kDebugMode,
-        child: MyHomePage(),
+    return el.EasyLocalization(
+      supportedLocales: AppLanguage.all,
+      path: AppLanguage.path,
+      fallbackLocale: AppLanguage.english,
+      startLocale: AppLanguage.english,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: Flavor.title,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const FlavorBanner(
+          show: kDebugMode,
+          child: MyHomePage(),
+        ),
       ),
     );
   }
