@@ -5,15 +5,15 @@ import 'package:movie_mate/core/network/api_client.dart';
 import 'package:movie_mate/core/network/return_response.dart';
 import 'package:movie_mate/features/home/data/models/movie_model.dart';
 
-abstract class HomeDataProvider{
+abstract class HomeRemoteDataProvider{
   Future<List<MovieModel>> getTrendingMovies(int page);
   Future<List<MovieModel>> getUpcomingMovies(int page);
 }
 
-class HomeDataProviderImpl extends HomeDataProvider{
+class HomeRemoteDataProviderImpl extends HomeRemoteDataProvider{
   final ApiClient apiClient;
 
-  HomeDataProviderImpl(this.apiClient);
+  HomeRemoteDataProviderImpl(this.apiClient);
 
   @override
   Future<List<MovieModel>> getTrendingMovies(int page) async {

@@ -18,7 +18,7 @@ class MyHomePage extends StatelessWidget {
       body: Center(
         child: GestureDetector(
           onTap: () async {
-           final response = await getIt<HomeDataProviderImpl>().getTrendingMovies(5);
+           final response = await getIt<HomeRemoteDataProviderImpl>().getTrendingMovies(5);
            log('response: $response');
           },
           child: Text(

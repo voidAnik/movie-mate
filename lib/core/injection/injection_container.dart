@@ -6,7 +6,7 @@ final getIt = GetIt.instance;
 
 Future<void> init() async {
   //* data providers
-  getIt.registerLazySingleton(()=> HomeDataProviderImpl(getIt()));
+  getIt.registerLazySingleton(()=> HomeRemoteDataProviderImpl(getIt()));
   //* Core
   getIt.registerLazySingleton(()=> ApiClient());
 }
