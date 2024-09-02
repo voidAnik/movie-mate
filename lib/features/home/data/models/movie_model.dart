@@ -1,3 +1,4 @@
+import 'package:movie_mate/core/constants/api_url.dart';
 import 'package:movie_mate/features/home/domain/entities/movie.dart';
 
 class MovieModel extends Movie {
@@ -24,8 +25,8 @@ class MovieModel extends Movie {
       title: json['title'],
       originalTitle: json['original_title'],
       overview: json['overview'],
-      posterPath: json['poster_path'],
-      backdropPath: json['backdrop_path'],
+      posterPath: '${ApiUrl.imagePrefix}${json['poster_path']}',
+      backdropPath: '${ApiUrl.imagePrefix}${json['backdrop_path']}',
       genreIds: List<int>.from(json['genre_ids']),
       popularity: json['popularity'].toDouble(),
       releaseDate: json['release_date'],

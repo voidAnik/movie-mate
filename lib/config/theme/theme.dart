@@ -8,12 +8,12 @@ class AppTheme{
     useMaterial3: true,
     brightness: Brightness.light,
     primarySwatch: Colors.blue,
+    primaryColor: primaryColor,
     scaffoldBackgroundColor: backgroundColor,
-    fontFamily: 'Muli',
     textTheme: AppTextTheme.lightTextTheme,
     appBarTheme: const AppBarTheme(
       color: backgroundColor,
-      iconTheme: IconThemeData(color: accentLightColor),
+      iconTheme: IconThemeData(color: actionBarIconColor),
     ),
     buttonTheme: const ButtonThemeData(
       buttonColor: accentLightColor,

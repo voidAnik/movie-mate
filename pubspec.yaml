@@ -54,6 +54,8 @@ dependencies:
   flutter_native_splash: ^2.4.1
   # for localization
   easy_localization: ^3.0.7
+  # for slide view
+  carousel_slider: ^5.0.0
 
 dev_dependencies:
   flutter_test:
