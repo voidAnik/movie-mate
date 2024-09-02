@@ -7,7 +7,7 @@ import 'package:movie_mate/core/blocs/common_api_state.dart';
 import 'package:movie_mate/core/extensions/context_extension.dart';
 import 'package:movie_mate/core/injection/injection_container.dart';
 import 'package:movie_mate/features/home/domain/entities/movie.dart';
-import 'package:movie_mate/features/home/presentation/blocs/get_trending_movies_cubit.dart';
+import 'package:movie_mate/features/home/presentation/blocs/get_upcoming_movies_cubit.dart';
 
 
 class SliderView extends StatelessWidget {
@@ -19,14 +19,14 @@ class SliderView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) {
-        return getIt<GetTrendingMoviesCubit>()..fetch();
+        return getIt<GetUpcomingMoviesCubit>()..fetch();
       },
       child: _createSlider(context),
     );
   }
 
   Widget _createSlider(BuildContext context) {
-    return BlocBuilder<GetTrendingMoviesCubit, CommonApiState>(
+    return BlocBuilder<GetUpcomingMoviesCubit, CommonApiState>(
       builder: (context, state) {
         if (state is ApiInitial || state is ApiLoading) {
           return const Center(child: CircularProgressIndicator(color: Colors.black));

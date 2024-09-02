@@ -5,6 +5,7 @@ import 'package:movie_mate/config/theme/colors.dart';
 import 'package:movie_mate/core/extensions/context_extension.dart';
 import 'package:movie_mate/core/language/generated/locale_keys.g.dart';
 import 'package:movie_mate/features/home/presentation/widgets/slider_view_widget.dart';
+import 'package:movie_mate/features/home/presentation/widgets/trending_movies_widget.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -60,6 +61,8 @@ class HomePage extends StatelessWidget {
 
                   },
                 ),
+                const Divider(height: 6.0, color: Colors.transparent),
+                const TrendingMoviesWidget(),
                 /*Divider(height: 4.0, color: Colors.transparent),
                 CategoryView(
                   actionOpenCategory: (movie) {
