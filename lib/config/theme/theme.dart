@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movie_mate/core/theme/colors.dart';
-import 'package:movie_mate/core/theme/text_theme.dart';
+import 'package:movie_mate/config/theme/colors.dart';
+import 'package:movie_mate/config/theme/text_theme.dart';
+
 
 class AppTheme{
   static ThemeData lightTheme = ThemeData(

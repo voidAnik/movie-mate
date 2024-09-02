@@ -5,7 +5,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_mate/app/app.dart';
-import 'package:movie_mate/app/firebase_options.dart';
+import 'package:movie_mate/config/firebase_options.dart';
 import 'package:movie_mate/app/flavors.dart';
 import 'package:movie_mate/core/injection/injection_container.dart' as di;
 
