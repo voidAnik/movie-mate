@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
+import 'package:movie_mate/core/error/exceptions.dart';
 import 'package:movie_mate/core/error/failures.dart';
 import 'package:movie_mate/core/network/return_failure.dart';
 import 'package:movie_mate/core/utils/network_info.dart';
@@ -11,6 +14,8 @@ class HomeRepositoryImpl extends HomeRepository{
   final HomeRemoteDataProvider remoteDataProvider;
   final HomeLocalDataProvider localDataProvider;
   final NetworkInfo networkInfo;
+  final String trendingType = 'trending';
+  final String upcomingType = 'upcoming';
 
   HomeRepositoryImpl(
       this.remoteDataProvider, this.localDataProvider, this.networkInfo);
@@ -20,14 +25,19 @@ class HomeRepositoryImpl extends HomeRepository{
     if (await networkInfo.isConnected) {
       try {
         final movies = await remoteDataProvider.getTrendingMovies(page);
-       // localDataProvider.cacheMovies(movies);
+        localDataProvider.cacheMovies(movies: movies, type: trendingType, page: page);
         return Right(movies);
       } catch(e) {
         return ReturnFailure<List<MovieModel>>()(e as Exception);
       }
     } else {
-      // TODO: implement local data provider
-      throw UnimplementedError();
+      try {
+        final movies = await localDataProvider.getMovies(type: trendingType, page: page);
+        log('movies from cache: $movies');
+        return Right(movies);
+      } on CacheException {
+        return Left(CacheFailure());
+      }
     }
 
   }
@@ -37,14 +47,19 @@ class HomeRepositoryImpl extends HomeRepository{
     if (await networkInfo.isConnected) {
       try {
         final movies = await remoteDataProvider.getUpcomingMovies(page);
-        // localDataProvider.cacheMovies(movies);
+        localDataProvider.cacheMovies(movies: movies, type: upcomingType, page: page);
         return Right(movies);
       } catch(e) {
         return ReturnFailure<List<MovieModel>>()(e as Exception);
       }
     } else {
-      // TODO: implement local data provider
-      throw UnimplementedError();
+      try {
+        final movies = await localDataProvider.getMovies(type: upcomingType, page: page);
+        log('movies from cache: $movies');
+        return Right(movies);
+      } on CacheException {
+        return Left(CacheFailure());
+      }
     }
   }
 

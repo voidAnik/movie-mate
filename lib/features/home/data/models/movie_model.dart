@@ -38,6 +38,26 @@ class MovieModel extends Movie {
     );
   }
 
+  factory MovieModel.fromSql(Map<String, dynamic> json) {
+    // Handle conversion from SQL
+    return MovieModel(
+      id: json['id'],
+      title: json['title'],
+      originalTitle: json['original_title'],
+      overview: json['overview'],
+      posterPath: json['poster_path'],
+      backdropPath: json['backdrop_path'],
+      genreIds: (json['genre_ids'] as String).split(',').map(int.parse).toList(),  // Convert from comma-separated string to List<int>
+      popularity: json['popularity'].toDouble(),
+      releaseDate: json['release_date'],
+      voteAverage: json['vote_average'].toDouble(),
+      voteCount: json['vote_count'],
+      adult: json['adult'] == 1,  // Convert from integer to boolean
+      video: json['video'] == 1,  // Convert from integer to boolean
+      originalLanguage: json['original_language'],
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -46,13 +66,13 @@ class MovieModel extends Movie {
       'overview': overview,
       'poster_path': posterPath,
       'backdrop_path': backdropPath,
-      'genre_ids': genreIds,
+      'genre_ids': genreIds.join(','),  // Convert from List<int> to comma-separated string
       'popularity': popularity,
       'release_date': releaseDate,
       'vote_average': voteAverage,
       'vote_count': voteCount,
-      'adult': adult,
-      'video': video,
+      'adult': adult ? 1 : 0,  // Convert from boolean to integer
+      'video': video ? 1 : 0,  // Convert from boolean to integer
       'original_language': originalLanguage,
     };
   }
