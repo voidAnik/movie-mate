@@ -3,11 +3,13 @@ import 'dart:developer';
 import 'package:movie_mate/core/constants/api_url.dart';
 import 'package:movie_mate/core/network/api_client.dart';
 import 'package:movie_mate/core/network/return_response.dart';
+import 'package:movie_mate/features/home/data/models/genre_model.dart';
 import 'package:movie_mate/features/home/data/models/movie_model.dart';
 
 abstract class HomeRemoteDataProvider{
   Future<List<MovieModel>> getTrendingMovies(int page);
   Future<List<MovieModel>> getUpcomingMovies(int page);
+  Future<List<GenreModel>> getGenres();
 }
 
 class HomeRemoteDataProviderImpl extends HomeRemoteDataProvider{
@@ -36,6 +38,16 @@ class HomeRemoteDataProviderImpl extends HomeRemoteDataProvider{
     return ReturnResponse<List<MovieModel>>()(response,
             (data) => (data['results'] as List)
             .map((json) => MovieModel.fromJson(json))
+            .toList());
+  }
+
+  @override
+  Future<List<GenreModel>> getGenres() async {
+    final response = await apiClient.get(ApiUrl.genreList);
+
+    return ReturnResponse<List<GenreModel>>()(response,
+            (data) => (data['genres'] as List)
+            .map((json) => GenreModel.fromJson(json))
             .toList());
   }
 

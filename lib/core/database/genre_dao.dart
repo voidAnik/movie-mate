@@ -27,7 +27,7 @@ class GenreDao {
     await batch.commit();
   }
 
-  Future<List<Genre>> getAllGenres() async {
+  Future<List<GenreModel>> getAllGenres() async {
     final result = await _db.query(genresTable);
     return result.map((e) => GenreModel.fromJson(e)).toList();
   }

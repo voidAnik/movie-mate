@@ -1,10 +1,9 @@
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_mate/config/theme/colors.dart';
 import 'package:movie_mate/core/extensions/context_extension.dart';
-import 'package:movie_mate/core/language/generated/locale_keys.g.dart';
-import 'package:movie_mate/features/home/presentation/widgets/slider_view_widget.dart';
+import 'package:movie_mate/features/home/presentation/widgets/upcoming_slider_view_widget.dart';
 import 'package:movie_mate/features/home/presentation/widgets/trending_movies_widget.dart';
 
 
@@ -51,41 +50,16 @@ class HomePage extends StatelessWidget {
   Widget _createBody(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints viewportConstraints) {
-        return SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: viewportConstraints.maxHeight),
-            child: Column(
-              children: [
-                SliderView(
-                  actionOpenMovie: (movie) {
+        return Column(
+          children: [
+            UpcomingSliderView(
+              actionOpenMovie: (movie) {
 
-                  },
-                ),
-                const Divider(height: 6.0, color: Colors.transparent),
-                const TrendingMoviesWidget(),
-                /*Divider(height: 4.0, color: Colors.transparent),
-                CategoryView(
-                  actionOpenCategory: (movie) {
-                    _openMovieDetail(movie);
-                  },
-                ),
-                Divider(height: 8.0, color: Colors.transparent),
-                MyListView(
-                  actionOpenMovie: (movie) {
-                    _openMovieDetail(movie);
-                  },
-                  actionLoadAll: () {},
-                ),
-                Divider(height: 8.0, color: Colors.transparent),
-                PopularView(
-                  actionOpenMovie: (movie) {
-                    _openMovieDetail(movie);
-                  },
-                  actionLoadAll: () {},
-                ),*/
-              ],
+              },
             ),
-          ),
+            const Divider(height: 6.0, color: Colors.transparent),
+            Expanded(child: const TrendingMoviesWidget()),
+          ],
         );
       },
     );

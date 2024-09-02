@@ -6,14 +6,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_mate/core/blocs/common_api_state.dart';
 import 'package:movie_mate/core/extensions/context_extension.dart';
 import 'package:movie_mate/core/injection/injection_container.dart';
+import 'package:movie_mate/core/utils/genre_service.dart';
 import 'package:movie_mate/features/home/domain/entities/movie.dart';
 import 'package:movie_mate/features/home/presentation/blocs/get_upcoming_movies_cubit.dart';
 
 
-class SliderView extends StatelessWidget {
+class UpcomingSliderView extends StatelessWidget {
   final Function(Movie) actionOpenMovie;
 
-  const SliderView({super.key, required this.actionOpenMovie});
+  const UpcomingSliderView({super.key, required this.actionOpenMovie});
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +93,7 @@ class SliderView extends StatelessWidget {
                   Container(
                     width: width,
                     height: double.infinity,
-                    padding: const EdgeInsets.only(left: 16.0, bottom: 20.0),
+                    padding: const EdgeInsets.only(left: 16.0, bottom: 8.0),
                     alignment: Alignment.bottomLeft,
                     decoration: const BoxDecoration(
                       gradient: LinearGradient(
@@ -107,13 +108,35 @@ class SliderView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    child: Text(
-                      movie.title.toUpperCase() ?? '',
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: context.textStyle.headlineMedium!.copyWith(
-                        color: context.theme.primaryColor,
-                      ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          movie.title.toUpperCase() ?? '',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: context.textStyle.headlineSmall!.copyWith(
+                            color: context.theme.primaryColor,
+                          ),
+                        ),
+                        Text(movie.releaseDate.split('-')[0],
+                          style: context.textStyle.bodySmall!.copyWith(
+                            color: context.theme.primaryColor,
+                          ),
+                        ),
+                        Wrap(
+                          alignment: WrapAlignment.start,
+                          //spacing: 2.0,
+                          // gap between adjacent chips
+                          //runSpacing: 2.0,
+                          children: movie.genreIds.map((genreId) {
+                            return GenreCard(
+                              genre: getIt<GenreService>().getGenreName(genreId),
+                            );
+                          }).toList(),
+                        )
+                      ],
                     ),
                   ),
                 ],
@@ -121,6 +144,36 @@ class SliderView extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class GenreCard extends StatelessWidget {
+  final String genre;
+
+  const GenreCard({Key? key, required this.genre})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      elevation: 4,
+      //surfaceTintColor: Colors.grey,
+      shadowColor: Colors.black,
+      color: Colors.grey,
+      child: Padding(
+        padding:
+        const EdgeInsets.only(left: 6, right: 6, bottom: 2),
+        child: Text(genre,
+            style: context.textStyle.bodySmall!.copyWith(
+              color: Colors.white,
+              fontSize: 10
+            ),
+            textAlign: TextAlign.center),
       ),
     );
   }

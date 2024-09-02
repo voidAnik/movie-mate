@@ -3,7 +3,9 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:movie_mate/core/error/exceptions.dart';
 import 'package:movie_mate/core/error/failures.dart';
+import 'package:movie_mate/core/injection/injection_container.dart';
 import 'package:movie_mate/core/network/return_failure.dart';
+import 'package:movie_mate/core/utils/genre_service.dart';
 import 'package:movie_mate/core/utils/network_info.dart';
 import 'package:movie_mate/features/home/data/data_sources/home_local_data_provider.dart';
 import 'package:movie_mate/features/home/data/data_sources/home_remote_data_provider.dart';
@@ -46,6 +48,7 @@ class HomeRepositoryImpl extends HomeRepository{
   Future<Either<Failure, List<MovieModel>>> getUpcomingMovies({required int page}) async {
     if (await networkInfo.isConnected) {
       try {
+        await _fetchAndCacheGenres();
         final movies = await remoteDataProvider.getUpcomingMovies(page);
         localDataProvider.cacheMovies(movies: movies, type: upcomingType, page: page);
         return Right(movies);
@@ -54,13 +57,21 @@ class HomeRepositoryImpl extends HomeRepository{
       }
     } else {
       try {
+        final genres = await localDataProvider.getGenres();
+        getIt<GenreService>().updateGenres(genres);
+
         final movies = await localDataProvider.getMovies(type: upcomingType, page: page);
-        log('movies from cache: $movies');
         return Right(movies);
       } on CacheException {
         return Left(CacheFailure());
       }
     }
+  }
+
+  Future<void> _fetchAndCacheGenres() async {
+    final genres = await remoteDataProvider.getGenres();
+    getIt<GenreService>().updateGenres(genres);
+    localDataProvider.cacheGenres(genres: genres);
   }
 
 }

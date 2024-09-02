@@ -9,13 +9,13 @@ class AppTextTheme{
   headlineMedium: GoogleFonts.openSans(
   fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.black),
   headlineSmall: GoogleFonts.openSans(
-  fontSize: 16.0, fontWeight: FontWeight.w400, color: Colors.black),
+  fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.black),
   titleLarge: GoogleFonts.openSans(
   fontSize: 20.0, fontWeight: FontWeight.w600, color: Colors.black),
   titleMedium: GoogleFonts.openSans(
   fontSize: 16.0, fontWeight: FontWeight.w500, color: Colors.black),
   titleSmall: GoogleFonts.openSans(
-  fontSize: 14.0, fontWeight: FontWeight.w400, color: Colors.black),
+  fontSize: 14.0, fontWeight: FontWeight.w500, color: Colors.black),
   bodyLarge: GoogleFonts.openSans(fontSize: 16.0, color: Colors.black),
   bodyMedium: GoogleFonts.openSans(fontSize: 14.0, color: Colors.black),
   bodySmall: GoogleFonts.openSans(fontSize: 12.0, color: Colors.black),

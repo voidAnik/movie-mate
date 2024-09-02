@@ -6,6 +6,7 @@ import 'package:movie_mate/core/database/genre_dao.dart';
 import 'package:movie_mate/core/database/movie_dao.dart';
 import 'package:movie_mate/core/database/selected_genre_dao.dart';
 import 'package:movie_mate/core/network/api_client.dart';
+import 'package:movie_mate/core/utils/genre_service.dart';
 import 'package:movie_mate/core/utils/network_info.dart';
 import 'package:movie_mate/features/home/data/data_sources/home_local_data_provider.dart';
 import 'package:movie_mate/features/home/data/data_sources/home_remote_data_provider.dart';
@@ -24,7 +25,8 @@ Future<void> init() async {
   getIt
     ..registerLazySingleton(()=> ApiClient())
     ..registerLazySingleton(()=> InternetConnectionChecker())
-    ..registerLazySingleton<NetworkInfo>(()=> NetworkInfoImpl(getIt()));
+    ..registerLazySingleton<NetworkInfo>(()=> NetworkInfoImpl(getIt()))
+  ..registerLazySingleton(()=> GenreService());
 
   //? database
   getIt.registerLazySingleton(()=> DatabaseManager());
@@ -38,7 +40,7 @@ Future<void> init() async {
   //* data providers
   getIt
     ..registerLazySingleton<HomeRemoteDataProvider>(()=> HomeRemoteDataProviderImpl(getIt()))
-    ..registerLazySingleton<HomeLocalDataProvider>(()=> HomeLocalDataProviderImpl(getIt()));
+    ..registerLazySingleton<HomeLocalDataProvider>(()=> HomeLocalDataProviderImpl(getIt(), getIt()));
 
   //* Repositories
   getIt.registerLazySingleton<HomeRepository>(()=> HomeRepositoryImpl(getIt(), getIt(), getIt()));
