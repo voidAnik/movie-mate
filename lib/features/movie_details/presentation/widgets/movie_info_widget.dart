@@ -52,48 +52,52 @@ Widget _createMovieInfo(BuildContext context){
   Widget _createMovieBody(BuildContext context, MovieDetailsModel movieInfo) {
     return Column(
       children: [
-        Container(
-          padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0, bottom: 8.0),
-          child: Text(
-            movieInfo.title ?? '',
-            maxLines: 2,
-            textAlign: TextAlign.center,
-            style: context.textStyle.headlineMedium,
+        const SizedBox(
+          height: 8,
+        ),
+        Text(
+          movieInfo.title ?? '',
+          maxLines: 2,
+          textAlign: TextAlign.center,
+          style: context.textStyle.headlineMedium,
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        Text(
+          movieInfo.genreNames,
+          maxLines: 2,
+          textAlign: TextAlign.center,
+          style: context.textStyle.bodyMedium!.copyWith(
+            color: context.theme.colorScheme.secondaryFixedDim
           ),
         ),
-        Container(
-          padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0, bottom: 8.0),
-          child: Text(
-            movieInfo.genreNames,
-            maxLines: 2,
-            textAlign: TextAlign.center,
-            style: context.textStyle.bodyMedium!.copyWith(
-              color: context.theme.colorScheme.secondaryFixedDim
-            ),
-          ),
+        const SizedBox(
+          height: 8,
         ),
         Container(
           alignment: Alignment.center,
           child: StarRatingWidget(
             size: 24.0,
             rating: movieInfo.voteAverage / 2,
-            color: Colors.red,
-            borderColor: Colors.black54,
             starCount: 5,
           ),
         ),
-        Container(
-          padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0, bottom: 8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(''),
-              _columnItem(context, title: LocaleKeys.year.tr(), value: movieInfo.releasedYear),
-              _columnItem(context, title: LocaleKeys.country.tr(), value: movieInfo.country),
-              _columnItem(context, title: LocaleKeys.length.tr(), value: movieInfo.runtime.toString() ?? ''),
-              const Text(''),
-            ],
-          ),
+        const SizedBox(
+          height: 8,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(''),
+            _columnItem(context, title: LocaleKeys.year.tr(), value: movieInfo.releasedYear),
+            _columnItem(context, title: LocaleKeys.country.tr(), value: movieInfo.country),
+            _columnItem(context, title: LocaleKeys.length.tr(), value: movieInfo.runtime.toString() ?? ''),
+            const Text(''),
+          ],
+        ),
+        const SizedBox(
+          height: 8,
         ),
         _createMovieOverview(context, movieInfo.overview),
       ],
@@ -111,7 +115,7 @@ Widget _createMovieInfo(BuildContext context){
                 ),
                 Text(
                   value,
-                  style: context.textStyle.headlineMedium,
+                  style: context.textStyle.titleMedium,
                 ),
               ],
             );
@@ -130,12 +134,10 @@ Widget _createMovieInfo(BuildContext context){
             child: Text(
               overview,
               textAlign: TextAlign.justify,
-              maxLines: state ? 100 : 5,
+              maxLines: state ? 100 : 4,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                fontSize: 14.0,
-                color: Colors.black45,
-                fontFamily: 'Muli',
+              style: context.textStyle.bodyMedium!.copyWith(
+                color: context.theme.colorScheme.secondaryFixedDim,
               ),
             ),
           ),

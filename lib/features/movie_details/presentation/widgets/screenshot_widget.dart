@@ -1,9 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_mate/config/theme/colors.dart';
 import 'package:movie_mate/core/blocs/common_api_state.dart';
+import 'package:movie_mate/core/extensions/context_extension.dart';
 import 'package:movie_mate/core/injection/injection_container.dart';
+import 'package:movie_mate/core/language/generated/locale_keys.g.dart';
+import 'package:movie_mate/core/widgets/error_widget.dart';
 import 'package:movie_mate/core/widgets/network_image.dart';
 import 'package:movie_mate/features/movie_details/domain/entities/movie_image.dart';
 import 'package:movie_mate/features/movie_details/presentation/blocs/movie_images_cubit.dart';
@@ -27,44 +31,29 @@ class ScreenshotViewWidget extends StatelessWidget {
         if (state is ApiInitial || state is ApiLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is ApiError) {
-          return Text(state.message);
-        } else if (state is ApiSuccess<List<MovieImage>>) {
+          return ErrorMessage(message: state.message);
+        } else if (state is ApiSuccess) {
           return _createScreenshotView(context, state.response);
         } else {
-          return const Text('not supported');
+          return const ErrorMessage(message: LocaleKeys.unknownError);
         }
       },
     );
   }
 
   Widget _createScreenshotView(BuildContext context, List<MovieImage> backdrops) {
-    final contentHeight = 2.0 * (MediaQuery.of(context).size.width / 2.2) / 3.0;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          alignment: Alignment.center,
-          padding: const EdgeInsets.only(left: 20.0, right: 16.0),
-          height: 48.0,
-          child: const Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: Text(
-                  'Screenshots',
-                  style: TextStyle(
-                    color: groupTitleColor,
-                    fontSize: 16.0,
-                    fontFamily: 'Muli',
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-
-            ],
+        Padding(
+          padding: const EdgeInsets.only(left: 20.0, bottom: 6),
+          child: Text(
+            LocaleKeys.screenshots.tr(),
+            style: context.textStyle.titleMedium,
           ),
         ),
         SizedBox(
-          height: contentHeight,
+          height: context.width * 0.3,
           child: ListView.separated(
             itemBuilder: (BuildContext context, int index) {
               return _createScreenshotItem(context, backdrops[index]);

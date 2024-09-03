@@ -11,9 +11,9 @@ class AppTextTheme{
   headlineSmall: GoogleFonts.openSans(
   fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.white),
   titleLarge: GoogleFonts.openSans(
-  fontSize: 20.0, fontWeight: FontWeight.w600, color: Colors.white),
+  fontSize: 18.0, fontWeight: FontWeight.w600, color: Colors.white),
   titleMedium: GoogleFonts.openSans(
-  fontSize: 16.0, fontWeight: FontWeight.w500, color: Colors.white),
+  fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.white),
   titleSmall: GoogleFonts.openSans(
   fontSize: 14.0, fontWeight: FontWeight.w500, color: Colors.white),
   bodyLarge: GoogleFonts.openSans(fontSize: 16.0, color: Colors.white),

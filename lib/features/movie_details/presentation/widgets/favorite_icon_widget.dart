@@ -24,7 +24,7 @@ class _FavoriteIconState extends State<FavoriteIconWidget> {
     return IconButton(
       icon: Icon(
         isFavorite! ? Icons.favorite : Icons.favorite_border,
-        color: actionBarIconColor,
+        color: Colors.red,
       ),
       onPressed: () {
         toggleFavorite();
