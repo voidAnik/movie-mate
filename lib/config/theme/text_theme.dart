@@ -5,9 +5,9 @@ class AppTextTheme{
 
   static TextTheme darkTextTheme = TextTheme(
   headlineLarge: GoogleFonts.openSans(
-  fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.white),
-  headlineMedium: GoogleFonts.openSans(
   fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),
+  headlineMedium: GoogleFonts.openSans(
+  fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.white),
   headlineSmall: GoogleFonts.openSans(
   fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.white),
   titleLarge: GoogleFonts.openSans(

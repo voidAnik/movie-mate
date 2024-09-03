@@ -11,19 +11,23 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return EasyLocalization(
-      supportedLocales: AppLanguage.all,
-      path: AppLanguage.path,
-      fallbackLocale: AppLanguage.english,
-      startLocale: AppLanguage.english,
-      child: MaterialApp.router(
+    return MediaQuery(
+      data: MediaQuery.of(context).copyWith(textScaler: TextScaler.noScaling),
+      child: _materialRouter(context),
+    );
+  }
+
+  MaterialApp _materialRouter(BuildContext context) {
+    return MaterialApp.router(
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
         routerConfig: RouterManager.config,
         debugShowCheckedModeBanner: false,
         title: Flavor.title,
         theme:AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
-      ),
-    );
+      );
   }
 }
 

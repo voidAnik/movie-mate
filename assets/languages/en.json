@@ -1,3 +1,9 @@
 {
-  "title": "Movies"
+ "year": "Year",
+ "country": "Country",
+ "length": "Length",
+ "screenshots": "Screenshots",
+ "trendingMovies": "Trending Movies",
+ "upcomingMovies": "Upcoming Movies",
+ "unknownError": "Unknown Error!"
 }

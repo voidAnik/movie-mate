@@ -65,10 +65,10 @@ Future<void> init() async {
 
   //* Blocs
   getIt
-    ..registerLazySingleton(()=> GetTrendingMoviesCubit(getIt()))
-    ..registerLazySingleton(()=> GetUpcomingMoviesCubit(getIt()))
-    ..registerLazySingleton(()=> MovieImagesCubit(getIt()))
-    ..registerLazySingleton(()=> MovieDetailsCubit(getIt()));
+    ..registerFactory(()=> GetTrendingMoviesCubit(getIt()))
+    ..registerFactory(()=> GetUpcomingMoviesCubit(getIt()))
+    ..registerFactory(()=> MovieImagesCubit(getIt()))
+    ..registerFactory(()=> MovieDetailsCubit(getIt()));
 
 
 

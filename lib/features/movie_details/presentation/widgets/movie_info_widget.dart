@@ -1,11 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_mate/config/theme/colors.dart';
 import 'package:movie_mate/core/blocs/common_api_state.dart';
+import 'package:movie_mate/core/extensions/context_extension.dart';
 import 'package:movie_mate/core/injection/injection_container.dart';
+import 'package:movie_mate/core/language/generated/locale_keys.g.dart';
 import 'package:movie_mate/core/utils/genre_service.dart';
+import 'package:movie_mate/core/widgets/error_widget.dart';
 import 'package:movie_mate/features/home/domain/entities/movie.dart';
 import 'package:movie_mate/features/movie_details/data/models/movie_details_model.dart';
 import 'package:movie_mate/features/movie_details/domain/entities/movie_details.dart';
@@ -36,11 +40,11 @@ Widget _createMovieInfo(BuildContext context){
       if (state is ApiInitial || state is ApiLoading) {
         return const Center(child: CircularProgressIndicator());
       } else if (state is ApiError) {
-        return Text(state.message);
+        return ErrorMessage(message: state.message);
       } else if (state is ApiSuccess) {
         return _createMovieBody(context, state.response);
       } else {
-        return const Text('not supported');
+        return ErrorMessage(message: LocaleKeys.unknownError.tr());
       }
     },
   );
@@ -54,12 +58,7 @@ Widget _createMovieInfo(BuildContext context){
             movieInfo.title ?? '',
             maxLines: 2,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20.0,
-              color: Colors.black87,
-              fontFamily: 'Muli',
-            ),
+            style: context.textStyle.headlineMedium,
           ),
         ),
         Container(
@@ -68,10 +67,8 @@ Widget _createMovieInfo(BuildContext context){
             movieInfo.genreNames,
             maxLines: 2,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 13.0,
-              color: Colors.black45,
-              fontFamily: 'Muli',
+            style: context.textStyle.bodyMedium!.copyWith(
+              color: context.theme.colorScheme.secondaryFixedDim
             ),
           ),
         ),
@@ -91,69 +88,9 @@ Widget _createMovieInfo(BuildContext context){
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(''),
-              Column(
-                children: [
-                  const Text(
-                    'Year',
-                    style: TextStyle(
-                      fontSize: 13.0,
-                      color: Colors.black45,
-                      fontFamily: 'Muli',
-                    ),
-                  ),
-                  Text(
-                    movieInfo.releasedYear,
-                    style: const TextStyle(
-                      fontSize: 18.0,
-                      color: Colors.black87,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Muli',
-                    ),
-                  )
-                ],
-              ),
-              Column(
-                children: [
-                  const Text(
-                    'Country',
-                    style: TextStyle(
-                      fontSize: 13.0,
-                      color: Colors.black45,
-                      fontFamily: 'Muli',
-                    ),
-                  ),
-                  Text(
-                    movieInfo.country,
-                    style: const TextStyle(
-                      fontSize: 18.0,
-                      color: Colors.black87,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Muli',
-                    ),
-                  )
-                ],
-              ),
-              Column(
-                children: [
-                  const Text(
-                    'Length',
-                    style: TextStyle(
-                      fontSize: 13.0,
-                      color: Colors.black45,
-                      fontFamily: 'Muli',
-                    ),
-                  ),
-                  Text(
-                    movieInfo.runtime.toString() ?? '',
-                    style: const TextStyle(
-                      fontSize: 18.0,
-                      color: Colors.black87,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Muli',
-                    ),
-                  ),
-                ],
-              ),
+              _columnItem(context, title: LocaleKeys.year.tr(), value: movieInfo.releasedYear),
+              _columnItem(context, title: LocaleKeys.country.tr(), value: movieInfo.country),
+              _columnItem(context, title: LocaleKeys.length.tr(), value: movieInfo.runtime.toString() ?? ''),
               const Text(''),
             ],
           ),
@@ -161,6 +98,23 @@ Widget _createMovieInfo(BuildContext context){
         _createMovieOverview(context, movieInfo.overview),
       ],
     );
+  }
+
+  Column _columnItem(BuildContext context, {required String title, required String value}) {
+    return Column(
+              children: [
+                Text(
+                  title,
+                  style: context.textStyle.bodyMedium!.copyWith(
+                    color: context.theme.colorScheme.secondaryFixedDim,
+                  ),
+                ),
+                Text(
+                  value,
+                  style: context.textStyle.headlineMedium,
+                ),
+              ],
+            );
   }
 
   Widget _createMovieOverview(BuildContext context, String overview) {

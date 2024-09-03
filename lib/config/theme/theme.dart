@@ -14,6 +14,7 @@ class AppTheme {
       surface: backgroundColor,
       onPrimary: Colors.white,
       onSecondary: Colors.black,
+      secondaryFixedDim: Colors.black45
     ),
     scaffoldBackgroundColor: backgroundColor,
     textTheme: AppTextTheme.lightTextTheme,
@@ -56,8 +57,9 @@ class AppTheme {
       primary: primaryDarkColor,
       secondary: accentDarkColor,
       surface: backgroundDarkColor,
-      onPrimary: Colors.white,
-      onSecondary: Colors.black,
+      onPrimary: Colors.black,
+      onSecondary: Colors.white,
+      secondaryFixedDim: Colors.grey
     ),
     scaffoldBackgroundColor: backgroundDarkColor,
     textTheme: AppTextTheme.darkTextTheme,
