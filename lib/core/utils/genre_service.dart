@@ -13,4 +13,13 @@ class GenreService {
   String getGenreName(int id) {
     return _genreMap[id] ?? 'Unknown';
   }
+
+  String getCommaSeparatedGenres(List<int> genreIds) {
+    List<String> genreNames = genreIds.map((id) {
+      return getGenreName(id);
+    }).toList();
+
+    // Join the genre names with a comma and space
+    return genreNames.join(', ');
+  }
 }

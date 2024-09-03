@@ -5,16 +5,18 @@ import 'package:movie_mate/core/blocs/common_api_state.dart';
 import 'package:movie_mate/core/extensions/context_extension.dart';
 import 'package:movie_mate/core/injection/injection_container.dart';
 import 'package:movie_mate/core/utils/genre_service.dart';
+import 'package:movie_mate/core/widgets/network_image.dart';
 import 'package:movie_mate/features/home/domain/entities/movie.dart';
 import 'package:movie_mate/features/home/presentation/blocs/get_trending_movies_cubit.dart';
 
 class TrendingMoviesWidget extends StatelessWidget {
-  const TrendingMoviesWidget({super.key});
+  final Function(Movie) onPressedMovie;
+  const TrendingMoviesWidget({super.key, required this.onPressedMovie});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<GetTrendingMoviesCubit>()..fetch(),
+      create: (context) => getIt<GetTrendingMoviesCubit>()..fetchMovies(),
       child: _createView(context),
     );
   }
@@ -67,10 +69,9 @@ class TrendingMoviesWidget extends StatelessWidget {
   }
 
   Widget _createItem(BuildContext context, Movie movie) {
-    final width = MediaQuery.of(context).size.width / 2.6;
     return InkWell(
       onTap: () {
-
+        onPressedMovie(movie);
       },
       child: Card(
         elevation: 10.0,
@@ -83,14 +84,13 @@ class TrendingMoviesWidget extends StatelessWidget {
           children: [
             ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
-            child: CachedNetworkImage(
-              placeholder: (context, url) => const Center(
-                child: CircularProgressIndicator(),
+            child: Hero(
+              tag: movie.id,
+              child: CustomNetworkImage(
+                imageUrl: movie.posterPath,
+                width: context.width * 0.05,
+                height: double.infinity,
               ),
-              imageUrl: movie.posterPath,
-              width: context.width * 0.05,
-              height: double.infinity,
-              fit: BoxFit.cover,
             ),
           ),
             Container(
@@ -118,9 +118,9 @@ class TrendingMoviesWidget extends StatelessWidget {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: context.textStyle.titleSmall!.copyWith(
-                      color: context.theme.primaryColor,
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
+                      color: Colors.white
                     ),
                   ),
                   const SizedBox(
@@ -128,19 +128,19 @@ class TrendingMoviesWidget extends StatelessWidget {
                   ),
                   Text(movie.releaseDate.split('-')[0],
                     style: context.textStyle.titleSmall!.copyWith(
-                      color: context.theme.primaryColor,
                       fontSize: 10,
+                      color: Colors.white
                     ),
                   ),
                   const SizedBox(
                     height: 2,
                   ),
-                  Text(_getGenres(movie),
+                  Text(getIt<GenreService>().getCommaSeparatedGenres(movie.genreIds),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: context.textStyle.titleSmall!.copyWith(
-                      color: context.theme.primaryColor,
                       fontSize: 10,
+                      color: Colors.white
                     ),
                   )
                 ],
@@ -152,13 +152,4 @@ class TrendingMoviesWidget extends StatelessWidget {
     );
   }
 
-  String _getGenres(Movie movie) {
-    List<String> genreNames = movie.genreIds.map((id) {
-
-      return getIt<GenreService>().getGenreName(id);
-    }).toList();
-
-    // Join the genre names with a comma and space
-    return genreNames.join(', ');
-  }
 }

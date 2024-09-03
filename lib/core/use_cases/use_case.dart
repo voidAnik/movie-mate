@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:movie_mate/core/error/failures.dart';
 
 abstract class UseCase<Type, Params> {
-  Future<Either<Failure, Type?>?> call(Params params);
+  Future<Either<Failure, Type?>?> call({required Params params});
 }
 
 class NoParams extends Equatable {

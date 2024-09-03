@@ -56,6 +56,10 @@ dependencies:
   easy_localization: ^3.0.7
   # for slide view
   carousel_slider: ^5.0.0
+  # to create a image shape
+  shape_of_view_null_safe: ^3.0.0
+  # to redirect urls
+  url_launcher: ^6.3.0
 
 dev_dependencies:
   flutter_test:

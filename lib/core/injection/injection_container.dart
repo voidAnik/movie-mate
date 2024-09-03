@@ -16,6 +16,13 @@ import 'package:movie_mate/features/home/domain/use_cases/get_trending_movies.da
 import 'package:movie_mate/features/home/domain/use_cases/get_upcoming_movies.dart';
 import 'package:movie_mate/features/home/presentation/blocs/get_trending_movies_cubit.dart';
 import 'package:movie_mate/features/home/presentation/blocs/get_upcoming_movies_cubit.dart';
+import 'package:movie_mate/features/movie_details/data/data_sources/movie_detail_remote_data_provider.dart';
+import 'package:movie_mate/features/movie_details/data/repositories/movie_detail_repository_impl.dart';
+import 'package:movie_mate/features/movie_details/domain/repositories/movie_detail_repository.dart';
+import 'package:movie_mate/features/movie_details/domain/use_cases/get_movie_details.dart';
+import 'package:movie_mate/features/movie_details/domain/use_cases/get_movie_images.dart';
+import 'package:movie_mate/features/movie_details/presentation/blocs/movie_details_cubit.dart';
+import 'package:movie_mate/features/movie_details/presentation/blocs/movie_images_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -40,20 +47,28 @@ Future<void> init() async {
   //* data providers
   getIt
     ..registerLazySingleton<HomeRemoteDataProvider>(()=> HomeRemoteDataProviderImpl(getIt()))
-    ..registerLazySingleton<HomeLocalDataProvider>(()=> HomeLocalDataProviderImpl(getIt(), getIt()));
+    ..registerLazySingleton<HomeLocalDataProvider>(()=> HomeLocalDataProviderImpl(getIt(), getIt()))
+    ..registerLazySingleton<MovieDetailRemoteDataProvider>(()=> MovieDetailRemoteDataProviderImpl(getIt()));
 
   //* Repositories
-  getIt.registerLazySingleton<HomeRepository>(()=> HomeRepositoryImpl(getIt(), getIt(), getIt()));
+  getIt
+      ..registerLazySingleton<HomeRepository>(()=> HomeRepositoryImpl(getIt(), getIt(), getIt()))
+      ..registerLazySingleton<MovieDetailRepository>(()=> MovieDetailRepositoryImpl(getIt()));
+
 
   //* Use Cases
   getIt
     ..registerLazySingleton(()=> GetTrendingMovies(getIt()))
-    ..registerLazySingleton(()=> GetUpcomingMovies(getIt()));
+    ..registerLazySingleton(()=> GetUpcomingMovies(getIt()))
+    ..registerLazySingleton(()=> GetMovieImages(getIt()))
+    ..registerLazySingleton(()=> GetMovieDetails(getIt()));
 
-  //* Use Cases
+  //* Blocs
   getIt
     ..registerLazySingleton(()=> GetTrendingMoviesCubit(getIt()))
-    ..registerLazySingleton(()=> GetUpcomingMoviesCubit(getIt()));
+    ..registerLazySingleton(()=> GetUpcomingMoviesCubit(getIt()))
+    ..registerLazySingleton(()=> MovieImagesCubit(getIt()))
+    ..registerLazySingleton(()=> MovieDetailsCubit(getIt()));
 
 
 

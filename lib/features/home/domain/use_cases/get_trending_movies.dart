@@ -10,7 +10,7 @@ class GetTrendingMovies extends UseCase<List<MovieModel>, int>{
   GetTrendingMovies(this.repository);
 
   @override
-  Future<Either<Failure, List<MovieModel>>> call(params) {
+  Future<Either<Failure, List<MovieModel>>> call({required int params}) {
     return repository.getTrendingMovies(page: params);
   }
 

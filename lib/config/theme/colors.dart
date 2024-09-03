@@ -1,19 +1,19 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
-const Color accentColor = Color(0xFF202025);
+/*const Color accentColor = Color(0xFF202025);
 const Color accentLightColor = Color(0xFFdaaa7b);
 
 const Color primaryColor = Colors.white;
 const Color primaryColorDark = Colors.white;
 
-const Color backgroundColor = Colors.white;
+const Color backgroundColor = Colors.white;*/
 
 const Color red = Colors.red;
 const Color white = Colors.white;
 const Color green = Colors.green;
 
-const Color actionBarIconColor = Color(0xFF030104);
+//const Color actionBarIconColor = Color(0xFF030104);
 const Color groupTitleColor = Color(0xFF030303);
 
 const Color white90 = Color(0xE6FFFFFF);
@@ -26,3 +26,17 @@ const Color white30 = Color(0x4DFFFFFF);
 const Color white20 = Color(0x33FFFFFF);
 const Color white10 = Color(0x1AFFFFFF);
 const Color white05 = Color(0x0DFFFFFF);
+
+
+// Light theme colors
+const Color primaryColor = Colors.orange;
+const Color primaryColorDark = Colors.deepOrangeAccent;
+const Color accentLightColor = Colors.amber;
+const Color backgroundColor = Colors.white;
+const Color actionBarIconColor = Colors.black;
+
+// Dark theme colors
+const Color primaryDarkColor = Colors.orange;
+const Color accentDarkColor = Colors.orangeAccent;
+const Color backgroundDarkColor = Colors.black;
+const Color actionBarIconDarkColor = Colors.white;

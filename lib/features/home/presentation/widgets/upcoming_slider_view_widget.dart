@@ -7,20 +7,21 @@ import 'package:movie_mate/core/blocs/common_api_state.dart';
 import 'package:movie_mate/core/extensions/context_extension.dart';
 import 'package:movie_mate/core/injection/injection_container.dart';
 import 'package:movie_mate/core/utils/genre_service.dart';
+import 'package:movie_mate/core/widgets/network_image.dart';
 import 'package:movie_mate/features/home/domain/entities/movie.dart';
 import 'package:movie_mate/features/home/presentation/blocs/get_upcoming_movies_cubit.dart';
 
 
 class UpcomingSliderView extends StatelessWidget {
-  final Function(Movie) actionOpenMovie;
+  final Function(Movie) onPressedMovie;
 
-  const UpcomingSliderView({super.key, required this.actionOpenMovie});
+  const UpcomingSliderView({super.key, required this.onPressedMovie});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) {
-        return getIt<GetUpcomingMoviesCubit>()..fetch();
+        return getIt<GetUpcomingMoviesCubit>()..fetchMovies();
       },
       child: _createSlider(context),
     );
@@ -62,7 +63,7 @@ class UpcomingSliderView extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        actionOpenMovie(movie);
+        onPressedMovie(movie);
       },
       child: Container(
         width: width,
@@ -81,14 +82,13 @@ class UpcomingSliderView extends StatelessWidget {
               borderRadius: BorderRadius.circular(12.0),
               child: Stack(
                 children: [
-                  CachedNetworkImage(
-                    placeholder: (context, url) => const Center(
-                      child: CircularProgressIndicator(),
+                  Hero(
+                    tag: movie.id,
+                    child: CustomNetworkImage(
+                      imageUrl: movie.backdropPath,
+                      width: width,
+                      height: double.infinity,
                     ),
-                    imageUrl: movie.backdropPath,
-                    width: width,
-                    height: double.infinity,
-                    fit: BoxFit.cover,
                   ),
                   Container(
                     width: width,
@@ -117,12 +117,12 @@ class UpcomingSliderView extends StatelessWidget {
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: context.textStyle.headlineSmall!.copyWith(
-                            color: context.theme.primaryColor,
+                            color: Colors.white
                           ),
                         ),
                         Text(movie.releaseDate.split('-')[0],
                           style: context.textStyle.bodySmall!.copyWith(
-                            color: context.theme.primaryColor,
+                              color: Colors.white
                           ),
                         ),
                         Wrap(
@@ -163,8 +163,8 @@ class GenreCard extends StatelessWidget {
       ),
       elevation: 4,
       //surfaceTintColor: Colors.grey,
-      shadowColor: Colors.black,
-      color: Colors.grey,
+      shadowColor: context.theme.primaryColor,
+      color: context.theme.primaryColor,
       child: Padding(
         padding:
         const EdgeInsets.only(left: 6, right: 6, bottom: 2),

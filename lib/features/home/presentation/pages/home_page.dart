@@ -1,10 +1,15 @@
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_mate/config/routes/router_manager.dart';
 import 'package:movie_mate/config/theme/colors.dart';
 import 'package:movie_mate/core/extensions/context_extension.dart';
+import 'package:movie_mate/core/widgets/title_widget.dart';
+import 'package:movie_mate/features/home/domain/entities/movie.dart';
 import 'package:movie_mate/features/home/presentation/widgets/upcoming_slider_view_widget.dart';
 import 'package:movie_mate/features/home/presentation/widgets/trending_movies_widget.dart';
+import 'package:movie_mate/features/movie_details/presentation/pages/movie_details_page.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -16,13 +21,8 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 4.0,
-        backgroundColor: context.theme.primaryColor,
-        title: Text('MovieMeta',
-          style: GoogleFonts.aldrich(
-            fontSize: context.width * 0.05,
-            color: Colors.red
-          ),
-        ),
+        //backgroundColor: context.theme.colorScheme.surface,
+        title: const TitleWidget(),
         centerTitle: true,
         leading: Container(
           padding: const EdgeInsets.only(left: 16.0),
@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
           Container(
             padding: const EdgeInsets.only(right: 16.0),
             child: IconButton(
-              icon: const Icon(Icons.search, color: actionBarIconColor),
+              icon: Icon(Icons.search, color: context.theme.appBarTheme.iconTheme!.color),
               onPressed: () {},
             ),
           ),
@@ -53,15 +53,21 @@ class HomePage extends StatelessWidget {
         return Column(
           children: [
             UpcomingSliderView(
-              actionOpenMovie: (movie) {
-
+              onPressedMovie: (movie) {
+                _navigateToMovieDetailPage(context, movie: movie);
               },
             ),
             const Divider(height: 6.0, color: Colors.transparent),
-            Expanded(child: const TrendingMoviesWidget()),
+            Expanded(child: TrendingMoviesWidget(onPressedMovie: (movie){
+              _navigateToMovieDetailPage(context, movie: movie);
+            },)),
           ],
         );
       },
     );
+  }
+
+  _navigateToMovieDetailPage(BuildContext context, {required Movie movie}){
+    context.push(MovieDetailsPage.path, extra: movie);
   }
 }

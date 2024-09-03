@@ -4,4 +4,6 @@ abstract class ApiUrl{
   static String upcomingMovies = '/3/movie/upcoming';
   static String imagePrefix = 'https://image.tmdb.org/t/p/w500';
   static String genreList = '/3/genre/movie/list';
+  static String movieImages = '/3/movie/{movie_id}/images';
+  static String movieDetails = '/3/movie/';
 }

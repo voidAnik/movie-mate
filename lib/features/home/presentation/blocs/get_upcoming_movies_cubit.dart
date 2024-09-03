@@ -8,7 +8,7 @@ class GetUpcomingMoviesCubit extends CommonApiCubit<List<MovieModel>>{
 
   GetUpcomingMoviesCubit(this.getUpcomingMovies);
 
-  Future<void> fetch() async {
-    performApiCall(() => getUpcomingMovies(1));
+  Future<void> fetchMovies() async {
+    performApiCall(() => getUpcomingMovies(params: 2));
   }
 }
