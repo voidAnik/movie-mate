@@ -5,10 +5,10 @@ import 'package:movie_mate/core/utils/genre_service.dart';
 import 'package:movie_mate/core/widgets/network_image.dart';
 import 'package:movie_mate/features/home/domain/entities/movie.dart';
 
-class MovieListItemWidget extends StatelessWidget {
+class MovieGridItemWidget extends StatelessWidget {
   final Movie movie;
   final VoidCallback onPressed;
-  const MovieListItemWidget({super.key, required this.onPressed, required this.movie});
+  const MovieGridItemWidget({super.key, required this.onPressed, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -93,3 +93,4 @@ class MovieListItemWidget extends StatelessWidget {
     );
   }
 }
+

@@ -8,13 +8,15 @@ import 'package:movie_mate/core/blocs/common_api_state.dart';
 import 'package:movie_mate/core/extensions/context_extension.dart';
 import 'package:movie_mate/core/language/generated/locale_keys.g.dart';
 import 'package:movie_mate/core/widgets/error_widget.dart';
-import 'package:movie_mate/features/favorites/presentation/widgets/movie_list_tile.dart';
+import 'package:movie_mate/features/favorites/presentation/widgets/movie_list_tile_widget.dart';
+import 'package:movie_mate/features/favorites/presentation/widgets/shimmer_list_item.dart';
 import 'package:movie_mate/features/home/domain/entities/movie.dart';
 import 'package:movie_mate/features/home/presentation/blocs/movie_search_cubit.dart';
 import 'package:movie_mate/features/movie_details/presentation/pages/movie_details_page.dart';
 
 class MovieSearchDelegate extends SearchDelegate<Movie> {
   final MovieSearchCubit searchCubit;
+  bool _hasSearched = false;
 
   MovieSearchDelegate(this.searchCubit);
 
@@ -50,7 +52,7 @@ class MovieSearchDelegate extends SearchDelegate<Movie> {
       bloc: searchCubit,
       builder: (context, state) {
         if (state is ApiLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return _createShimmerList(5);
         } else if (state is ApiSuccess) {
           final List<Movie> movies = state.response;
 
@@ -58,22 +60,36 @@ class MovieSearchDelegate extends SearchDelegate<Movie> {
             //return const Center(child: Text('No movies found.'));
             return ErrorMessage(message: LocaleKeys.noMovies.tr(),);
           }
-
-          return ListView.builder(
-            padding: const EdgeInsets.only(top: 8.0),
-            itemCount: movies.length,
-            itemBuilder: (context, index) {
-              final movie = movies[index];
-              return MovieListTileWidget(onPressed: (){
-                _navigateToMovieDetailPage(context, movie: movie);
-              }, movie: movie);
-            },
-          );
+          _hasSearched = true;
+          return _createSearchList(movies);
         } else if (state is ApiError) {
           return ErrorMessage(message: state.message);
         } else {
           return  _searchMessage(context, LocaleKeys.searchHint.tr());
         }
+      },
+    );
+  }
+
+  ListView _createSearchList(List<Movie> movies) {
+    return ListView.builder(
+          padding: const EdgeInsets.only(top: 8.0),
+          itemCount: movies.length,
+          itemBuilder: (context, index) {
+            final movie = movies[index];
+            return MovieListTileWidget(onPressed: (){
+              _navigateToMovieDetailPage(context, movie: movie);
+            }, movie: movie);
+          },
+        );
+  }
+
+  ListView _createShimmerList(int length) {
+    return ListView.builder(
+      padding: const EdgeInsets.only(top: 8.0),
+      itemCount: length,
+      itemBuilder: (context, index) {
+        return const ShimmerListItem();
       },
     );
   }
@@ -87,7 +103,31 @@ class MovieSearchDelegate extends SearchDelegate<Movie> {
       searchCubit.search(query: query); // Trigger search on query change
       return buildResults(context);
     }*/
-    return _searchMessage(context, LocaleKeys.searchHint.tr());
+    if(_hasSearched){
+      return BlocBuilder<MovieSearchCubit, CommonApiState>(
+        bloc: searchCubit,
+        builder: (context, state) {
+          if (state is ApiLoading) {
+            return _createShimmerList(5);
+          } else if (state is ApiSuccess) {
+            final List<Movie> movies = state.response;
+
+            if (movies.isEmpty) {
+              //return const Center(child: Text('No movies found.'));
+              return ErrorMessage(message: LocaleKeys.noMovies.tr(),);
+            }
+            _hasSearched = true;
+            return _createSearchList(movies);
+          } else if (state is ApiError) {
+            return ErrorMessage(message: state.message);
+          } else {
+            return  _searchMessage(context, LocaleKeys.searchHint.tr());
+          }
+        },
+      );
+    } else {
+      return _searchMessage(context, LocaleKeys.searchHint.tr());
+    }
   }
 
   Widget _searchMessage(BuildContext context, String text){

@@ -78,35 +78,40 @@ class MovieDetailsPage extends StatelessWidget {
 
 
   Widget _createAppbar(BuildContext context) {
-    return AppBar(
-      elevation: 0.0,
-      titleSpacing: 4.0,
-      backgroundColor: Colors.transparent,
-      centerTitle: true,
-      leading: Container(
-        padding: const EdgeInsets.only(left: 16.0),
-        child: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
-      actions: [
-        Container(
-          padding: const EdgeInsets.only(right: 16.0),
-          child: BlocBuilder<AddFavoriteCubit, bool>(
-            builder: (context, isFavorite) {
-              log('changed bloc favorite: $isFavorite');
-              return FavoriteIconWidget(
-                  isFavorite: isFavorite, onFavoriteChanged: (checked) {
-                log('changed favorite: $checked');
-                _toggleFavorite(context, checked);
-              });
+    return Positioned(
+      top: 0.0,
+      left: 0.0,
+      right: 0.0,
+      child: AppBar(
+        elevation: 0.0,
+        titleSpacing: 4.0,
+        backgroundColor: Colors.transparent,
+        centerTitle: true,
+        leading: Container(
+          padding: const EdgeInsets.only(left: 16.0),
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop();
             },
           ),
         ),
-      ],
+        actions: [
+          Container(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: BlocBuilder<AddFavoriteCubit, bool>(
+              builder: (context, isFavorite) {
+                log('changed bloc favorite: $isFavorite');
+                return FavoriteIconWidget(
+                    isFavorite: isFavorite, onFavoriteChanged: (checked) {
+                  log('changed favorite: $checked');
+                  _toggleFavorite(context, checked);
+                });
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 

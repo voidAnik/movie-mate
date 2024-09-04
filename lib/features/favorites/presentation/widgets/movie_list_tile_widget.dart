@@ -3,12 +3,15 @@ import 'package:movie_mate/core/extensions/context_extension.dart';
 import 'package:movie_mate/core/injection/injection_container.dart';
 import 'package:movie_mate/core/utils/genre_service.dart';
 import 'package:movie_mate/core/widgets/network_image.dart';
+import 'package:movie_mate/core/widgets/shimmer_loading.dart';
 import 'package:movie_mate/features/home/domain/entities/movie.dart';
 
 class MovieListTileWidget extends StatelessWidget {
   final VoidCallback onPressed;
   final Movie movie;
-  const MovieListTileWidget({super.key, required this.onPressed, required this.movie});
+
+  const MovieListTileWidget(
+      {super.key, required this.onPressed, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -32,17 +35,26 @@ class MovieListTileWidget extends StatelessWidget {
             ),
           ),
         ),
-        title: Text(movie.title, style: context.textStyle.titleSmall),
+        title: Text(movie.title,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: context.textStyle.titleSmall!.copyWith(
+              fontSize: 12
+            )),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               movie.releaseDate.split('-')[0],
-              style: context.textStyle.bodySmall,
+              style: context.textStyle.bodySmall!.copyWith(
+                fontSize: 10
+              ),
             ),
             Text(
               getIt<GenreService>().getCommaSeparatedGenres(movie.genreIds),
-              style: context.textStyle.bodySmall,
+              style: context.textStyle.bodySmall!.copyWith(
+                  fontSize: 10
+              ),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),

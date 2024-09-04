@@ -3,20 +3,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_mate/config/theme/colors.dart';
 import 'package:movie_mate/core/blocs/common_api_state.dart';
 import 'package:movie_mate/core/extensions/context_extension.dart';
-import 'package:movie_mate/core/injection/injection_container.dart';
 import 'package:movie_mate/core/language/generated/locale_keys.g.dart';
-import 'package:movie_mate/core/utils/genre_service.dart';
 import 'package:movie_mate/core/widgets/error_widget.dart';
 import 'package:movie_mate/features/home/domain/entities/movie.dart';
 import 'package:movie_mate/features/movie_details/data/models/movie_details_model.dart';
-import 'package:movie_mate/features/movie_details/domain/entities/movie_details.dart';
 import 'package:movie_mate/features/movie_details/presentation/blocs/expand_cubit.dart';
 import 'package:movie_mate/features/movie_details/presentation/blocs/movie_details_cubit.dart';
+import 'package:movie_mate/features/movie_details/presentation/widgets/shimmer_movie_info.dart';
 import 'package:movie_mate/features/movie_details/presentation/widgets/star_rating_widget.dart';
-import 'package:shape_of_view_null_safe/shape_of_view_null_safe.dart';
 
 
 class MovieInfoWidget extends StatelessWidget {
@@ -38,7 +34,7 @@ Widget _createMovieInfo(BuildContext context){
   return BlocBuilder<MovieDetailsCubit, CommonApiState>(
     builder: (context, state) {
       if (state is ApiInitial || state is ApiLoading) {
-        return const Center(child: CircularProgressIndicator());
+        return const ShimmerMovieInfo();
       } else if (state is ApiError) {
         return ErrorMessage(message: state.message);
       } else if (state is ApiSuccess) {

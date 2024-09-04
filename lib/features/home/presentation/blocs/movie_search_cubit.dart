@@ -5,15 +5,15 @@ import 'package:movie_mate/features/home/domain/use_cases/get_trending_movies.da
 import 'package:movie_mate/features/home/domain/use_cases/search_movies.dart';
 
 class MovieSearchCubit extends CommonApiCubit<List<MovieModel>>{
-  final SearchMovies searchMovies;
+  final SearchMovies _searchMovies;
 
-
-  MovieSearchCubit(this.searchMovies);
+  MovieSearchCubit(this._searchMovies);
 
   Future<void> search({required String query}) async {
-    performApiCall(() => searchMovies(params: query));
+    performApiCall(() => _searchMovies(params: query));
   }
   void reset(){
     emit(ApiInitial());
   }
+
 }

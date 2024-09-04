@@ -9,9 +9,12 @@ import 'package:movie_mate/core/injection/injection_container.dart';
 import 'package:movie_mate/core/utils/genre_service.dart';
 import 'package:movie_mate/core/widgets/error_widget.dart';
 import 'package:movie_mate/core/widgets/network_image.dart';
+import 'package:movie_mate/core/widgets/shimmer_loading.dart';
 import 'package:movie_mate/features/home/domain/entities/movie.dart';
 import 'package:movie_mate/features/home/presentation/blocs/upcoming_movies_cubit.dart';
+import 'package:movie_mate/features/home/presentation/widgets/shimmer_slider_item.dart';
 import 'package:movie_mate/features/home/presentation/widgets/slider_item_widget.dart';
+import 'package:shimmer/shimmer.dart';
 
 
 class UpcomingSliderView extends StatelessWidget {
@@ -33,7 +36,7 @@ class UpcomingSliderView extends StatelessWidget {
     return BlocBuilder<UpcomingMoviesCubit, CommonApiState>(
       builder: (context, state) {
         if (state is ApiInitial || state is ApiLoading) {
-          return const Center(child: CircularProgressIndicator(color: Colors.black));
+          return _createShimmerSlider(10);
         } else if (state is ApiError) {
           return ErrorMessage(message: state.message);
         } else if (state is ApiSuccess<List<Movie>>) {
@@ -52,17 +55,32 @@ class UpcomingSliderView extends StatelessWidget {
           itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
             return SliderItemWidget(movie: movies[itemIndex], onPressed: ()=> onPressedMovie(movies[itemIndex]),);
           },
-          options: CarouselOptions(
-            enableInfiniteScroll: true,
-            autoPlay: true,
-            autoPlayInterval: const Duration(seconds: 5),
-            autoPlayAnimationDuration: const Duration(milliseconds: 800),
-            pauseAutoPlayOnTouch: true,
-            viewportFraction: 0.8,
-            enlargeCenterPage: true,
-          ),
+          options: _getCarouselOptions(),
         );
   }
 
+  CarouselOptions _getCarouselOptions() {
+    return CarouselOptions(
+          enableInfiniteScroll: true,
+          autoPlay: true,
+          autoPlayInterval: const Duration(seconds: 5),
+          autoPlayAnimationDuration: const Duration(milliseconds: 800),
+          pauseAutoPlayOnTouch: true,
+          viewportFraction: 0.8,
+          enlargeCenterPage: true,
+        );
+  }
+
+  CarouselSlider _createShimmerSlider(int length) {
+    return CarouselSlider.builder(
+      itemCount: length,
+      itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
+        return const ShimmerSliderItem();
+      },
+      options: _getCarouselOptions(),
+    );
+  }
+
 }
+
 

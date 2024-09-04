@@ -8,10 +8,13 @@ class ErrorMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(message,
-      style: context.textStyle.headlineMedium!.copyWith(
-        color: Colors.redAccent
-      ),),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text(message,
+        style: context.textStyle.headlineMedium!.copyWith(
+          color: Colors.redAccent
+        ),),
+      ),
     );
   }
 }

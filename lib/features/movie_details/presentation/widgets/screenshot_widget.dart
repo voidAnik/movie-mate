@@ -9,8 +9,10 @@ import 'package:movie_mate/core/injection/injection_container.dart';
 import 'package:movie_mate/core/language/generated/locale_keys.g.dart';
 import 'package:movie_mate/core/widgets/error_widget.dart';
 import 'package:movie_mate/core/widgets/network_image.dart';
+import 'package:movie_mate/core/widgets/shimmer_loading.dart';
 import 'package:movie_mate/features/movie_details/domain/entities/movie_image.dart';
 import 'package:movie_mate/features/movie_details/presentation/blocs/movie_images_cubit.dart';
+import 'package:movie_mate/features/movie_details/presentation/widgets/shimmer_screenshot.dart';
 
 class ScreenshotViewWidget extends StatelessWidget {
   final int movieId;
@@ -26,22 +28,6 @@ class ScreenshotViewWidget extends StatelessWidget {
   }
 
   Widget _createScreenshot(BuildContext context) {
-    return BlocBuilder<MovieImagesCubit, CommonApiState>(
-      builder: (context, state) {
-        if (state is ApiInitial || state is ApiLoading) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is ApiError) {
-          return ErrorMessage(message: state.message);
-        } else if (state is ApiSuccess) {
-          return _createScreenshotView(context, state.response);
-        } else {
-          return const ErrorMessage(message: LocaleKeys.unknownError);
-        }
-      },
-    );
-  }
-
-  Widget _createScreenshotView(BuildContext context, List<MovieImage> backdrops) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -52,27 +38,61 @@ class ScreenshotViewWidget extends StatelessWidget {
             style: context.textStyle.titleMedium,
           ),
         ),
-        SizedBox(
-          height: context.width * 0.3,
-          child: ListView.separated(
-            itemBuilder: (BuildContext context, int index) {
-              return _createScreenshotItem(context, backdrops[index]);
-            },
-            padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-            scrollDirection: Axis.horizontal,
-            separatorBuilder: (context, index) => const VerticalDivider(
-              color: Colors.transparent,
-              width: 6.0,
-            ),
-            itemCount: backdrops.length,
-          ),
+        BlocBuilder<MovieImagesCubit, CommonApiState>(
+          builder: (context, state) {
+            if (state is ApiInitial || state is ApiLoading) {
+              return _createShimmerScreenshot(context, 6);
+            } else if (state is ApiError) {
+              return ErrorMessage(message: state.message);
+            } else if (state is ApiSuccess) {
+              return _createScreenshotView(context, state.response);
+            } else {
+              return const ErrorMessage(message: LocaleKeys.unknownError);
+            }
+          },
         ),
       ],
     );
   }
 
+  Widget _createScreenshotView(BuildContext context, List<MovieImage> backdrops) {
+    return SizedBox(
+      height: context.width * 0.3,
+      child: ListView.separated(
+        itemBuilder: (BuildContext context, int index) {
+          return _createScreenshotItem(context, backdrops[index]);
+        },
+        padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+        scrollDirection: Axis.horizontal,
+        separatorBuilder: (context, index) => const VerticalDivider(
+          color: Colors.transparent,
+          width: 6.0,
+        ),
+        itemCount: backdrops.length,
+      ),
+    );
+  }
+
+  Widget _createShimmerScreenshot(BuildContext context, int length) {
+    return SizedBox(
+      height: context.width * 0.3,
+      child: ListView.separated(
+        itemBuilder: (BuildContext context, int index) {
+          return const ShimmerMovieScreenshot();
+        },
+        padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+        scrollDirection: Axis.horizontal,
+        separatorBuilder: (context, index) => const VerticalDivider(
+          color: Colors.transparent,
+          width: 6.0,
+        ),
+        itemCount: length,
+      ),
+    );
+  }
+
   Widget _createScreenshotItem(BuildContext context, MovieImage img) {
-    final width = MediaQuery.of(context).size.width / 2.4;
+    final width = context.width / 2.4;
     return Container(
       width: width,
       height: double.infinity,
@@ -99,3 +119,5 @@ class ScreenshotViewWidget extends StatelessWidget {
     );
   }
 }
+
+
