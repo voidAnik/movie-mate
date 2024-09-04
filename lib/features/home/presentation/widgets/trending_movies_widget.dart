@@ -61,19 +61,31 @@ class TrendingMoviesWidget extends StatelessWidget {
 
   Widget _createTrendingMovieList(BuildContext context, movies) {
     return Expanded(
-      child: GridView.builder(
-        shrinkWrap: true,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3, // number of items in each row
-            mainAxisSpacing: 8.0, // spacing between rows
-            crossAxisSpacing: 8.0, // spacing between columns
-            childAspectRatio: 0.7
-        ),
-        padding: const EdgeInsets.all(8.0), // padding around the grid
-        itemCount: movies.length, // total number of items
-        itemBuilder: (context, index) {
-          return MovieGridItemWidget(movie: movies[index],onPressed: () => onPressedMovie(movies[index]));
+      child: NotificationListener<ScrollNotification>(
+        onNotification: (scrollInfo) {
+          if (scrollInfo is ScrollEndNotification &&
+              scrollInfo.metrics.axis == Axis.vertical) {
+            if (scrollInfo.metrics.pixels ==
+                scrollInfo.metrics.maxScrollExtent) {
+              context.read<TrendingMoviesCubit>().loadMoreMovies();
+            }
+          }
+          return true;
         },
+        child: GridView.builder(
+          shrinkWrap: true,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3, // number of items in each row
+              mainAxisSpacing: 8.0, // spacing between rows
+              crossAxisSpacing: 8.0, // spacing between columns
+              childAspectRatio: 0.7
+          ),
+          padding: const EdgeInsets.all(8.0), // padding around the grid
+          itemCount: movies.length, // total number of items
+          itemBuilder: (context, index) {
+            return MovieGridItemWidget(movie: movies[index],onPressed: () => onPressedMovie(movies[index]));
+          },
+        ),
       ),
     );
   }
