@@ -38,8 +38,8 @@ class MovieModel extends Movie {
     );
   }
 
-  factory MovieModel.fromSql(Map<String, dynamic> json) {
-    // Handle conversion from SQL
+  factory MovieModel.fromCache(Map<String, dynamic> json) {
+    // Handle conversion from SQL & firebase
     return MovieModel(
       id: json['id'],
       title: json['title'],
@@ -75,6 +75,25 @@ class MovieModel extends Movie {
       'video': video ? 1 : 0,  // Convert from boolean to integer
       'original_language': originalLanguage,
     };
+  }
+
+  factory MovieModel.fromEntity(Movie movie) {
+    return MovieModel(
+      id: movie.id,
+      title: movie.title,
+      originalTitle: movie.originalTitle,
+      overview: movie.overview,
+      posterPath: movie.posterPath,
+      backdropPath: movie.backdropPath,
+      genreIds: movie.genreIds,
+      popularity: movie.popularity,
+      releaseDate: movie.releaseDate,
+      voteAverage: movie.voteAverage,
+      voteCount: movie.voteCount,
+      adult: movie.adult,
+      video: movie.video,
+      originalLanguage: movie.originalLanguage,
+    );
   }
 
   @override

@@ -9,7 +9,7 @@ class ReturnResponse<T> {
     if (response.statusCode! >= 200 && response.statusCode! <= 300) {
       return fromJsonFunc(response.data);
     } else if (response.statusCode! >= 400 && response.statusCode! < 500) {
-      throw ApiException(error: 'temp');
+      throw ApiException(error: response.data['status_message']);
     } else {
       throw ServerException();
     }

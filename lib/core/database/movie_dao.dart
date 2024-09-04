@@ -32,7 +32,7 @@ class MovieDao {
       whereArgs: [type, pageNumber],
     );
 
-    return result.map((e) => MovieModel.fromSql(e)).toList();
+    return result.map((e) => MovieModel.fromCache(e)).toList();
   }
 
   Future<List<MovieModel>> searchMovies(String query) async {

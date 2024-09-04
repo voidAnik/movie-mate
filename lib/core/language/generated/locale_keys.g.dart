@@ -8,5 +8,12 @@ abstract class  LocaleKeys {
   static const trendingMovies = 'trendingMovies';
   static const upcomingMovies = 'upcomingMovies';
   static const unknownError = 'unknownError';
+  static const slogan = 'slogan';
+  static const noMovies = 'noMovies';
+  static const searchHint = 'searchHint';
+  static const favoriteMovies = 'favoriteMovies';
+  static const nearbyTheatres = 'nearbyTheatres';
+  static const settings = 'settings';
+  static const upcoming = 'upcoming';
 
 }

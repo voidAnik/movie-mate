@@ -5,5 +5,12 @@
  "screenshots": "Screenshots",
  "trendingMovies": "Trending Movies",
  "upcomingMovies": "Upcoming Movies",
- "unknownError": "Unknown Error!"
+ "unknownError": "Unknown Error!",
+ "slogan": "Your Movie Guide",
+ "noMovies": "No movies found.",
+ "searchHint": "Enter a movie name and press enter to search.",
+ "favoriteMovies": "Favorite Movies",
+ "nearbyTheatres": "Nearby Theaters",
+ "settings": "Settings",
+ "upcoming": "Upcoming"
 }

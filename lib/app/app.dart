@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_mate/config/routes/router_manager.dart';
 import 'package:movie_mate/config/theme/theme.dart';
-import 'package:movie_mate/core/language/app_language.dart';
 
 import 'flavors.dart';
 

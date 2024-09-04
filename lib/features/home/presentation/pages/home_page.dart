@@ -1,20 +1,18 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:movie_mate/config/routes/router_manager.dart';
-import 'package:movie_mate/config/theme/colors.dart';
 import 'package:movie_mate/core/extensions/context_extension.dart';
 import 'package:movie_mate/core/injection/injection_container.dart';
 import 'package:movie_mate/core/widgets/title_widget.dart';
+import 'package:movie_mate/features/home/data/models/movie_model.dart';
 import 'package:movie_mate/features/home/domain/entities/movie.dart';
-import 'package:movie_mate/features/home/domain/use_cases/search_movies.dart';
 import 'package:movie_mate/features/home/presentation/blocs/movie_search_cubit.dart';
 import 'package:movie_mate/features/home/presentation/widgets/movie_search_delegate.dart';
+import 'package:movie_mate/features/home/presentation/widgets/app_drawer.dart';
 import 'package:movie_mate/features/home/presentation/widgets/upcoming_slider_view_widget.dart';
 import 'package:movie_mate/features/home/presentation/widgets/trending_movies_widget.dart';
 import 'package:movie_mate/features/movie_details/presentation/pages/movie_details_page.dart';
-
 
 class HomePage extends StatelessWidget {
   static const String path = '/homepage';
@@ -25,42 +23,36 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<MovieSearchCubit>(),
-      child: Builder(
-        builder: (context) {
-          MovieSearchCubit searchCubit = context.read<MovieSearchCubit>();
-          return Scaffold(
-            appBar: AppBar(
-              titleSpacing: 4.0,
-              //backgroundColor: context.theme.colorScheme.surface,
-              title: const TitleWidget(),
-              centerTitle: true,
-              leading: Container(
-                padding: const EdgeInsets.only(left: 16.0),
+      child: Builder(builder: (context) {
+        MovieSearchCubit searchCubit = context.read<MovieSearchCubit>();
+        return Scaffold(
+          drawer: const AppDrawer(),
+          appBar: AppBar(
+            titleSpacing: 4.0,
+            //backgroundColor: context.theme.colorScheme.surface,
+            title: const TitleWidget(),
+            centerTitle: true,
+
+            actions: [
+              Container(
+                padding: const EdgeInsets.only(right: 16.0),
                 child: IconButton(
-                  icon: Icon(Icons.menu_rounded,
+                  icon: Icon(Icons.search,
                       color: context.theme.appBarTheme.iconTheme!.color),
-                  onPressed: () {},
+                  onPressed: () {
+                    showSearch(
+                        context: context,
+                        delegate: MovieSearchDelegate(searchCubit));
+                  },
                 ),
               ),
-              actions: [
-                Container(
-                  padding: const EdgeInsets.only(right: 16.0),
-                  child: IconButton(
-                    icon: Icon(Icons.search,
-                        color: context.theme.appBarTheme.iconTheme!.color),
-                    onPressed: () {
-                      showSearch(context: context, delegate: MovieSearchDelegate(searchCubit));
-                    },
-                  ),
-                ),
-              ],
-              elevation: 0.0,
-            ),
-            backgroundColor: context.theme.scaffoldBackgroundColor,
-            body: _createBody(context),
-          );
-        }
-      ),
+            ],
+            elevation: 0.0,
+          ),
+          backgroundColor: context.theme.scaffoldBackgroundColor,
+          body: _createBody(context),
+        );
+      }),
     );
   }
 
@@ -75,9 +67,11 @@ class HomePage extends StatelessWidget {
               },
             ),
             const Divider(height: 6.0, color: Colors.transparent),
-            Expanded(child: TrendingMoviesWidget(onPressedMovie: (movie) {
-              _navigateToMovieDetailPage(context, movie: movie);
-            },)),
+            Expanded(child: TrendingMoviesWidget(
+              onPressedMovie: (movie) async {
+                _navigateToMovieDetailPage(context, movie: movie);
+              },
+            )),
           ],
         );
       },

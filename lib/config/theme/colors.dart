@@ -32,11 +32,13 @@ const Color white05 = Color(0x0DFFFFFF);
 const Color primaryColor = Colors.orange;
 const Color primaryColorDark = Colors.deepOrangeAccent;
 const Color accentLightColor = Colors.amber;
-const Color backgroundColor = Colors.white;
+//const Color backgroundColor = Colors.white;
+const Color backgroundColor = Color(0xFFF7F7F7);
 const Color actionBarIconColor = Colors.black;
 
 // Dark theme colors
 const Color primaryDarkColor = Colors.orange;
 const Color accentDarkColor = Colors.orangeAccent;
-const Color backgroundDarkColor = Colors.black;
+//const Color backgroundDarkColor = Colors.black;
+const Color backgroundDarkColor = Color(0xFF121212);
 const Color actionBarIconDarkColor = Colors.white;

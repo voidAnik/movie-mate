@@ -15,11 +15,11 @@ class GenreCard extends StatelessWidget {
       ),
       elevation: 4,
       //surfaceTintColor: Colors.grey,
-      shadowColor: context.theme.primaryColor,
-      color: context.theme.primaryColor,
+      shadowColor: context.theme.colorScheme.primary,
+      color: context.theme.colorScheme.primary,
       child: Padding(
         padding:
-        const EdgeInsets.only(left: 6, right: 6, bottom: 2),
+        const EdgeInsets.only(left: 6, right: 6, bottom: 2, top: 2),
         child: Text(genre,
             style: context.textStyle.bodySmall!.copyWith(
                 color: Colors.white,

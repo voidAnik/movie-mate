@@ -21,6 +21,17 @@ class CustomNetworkImage extends StatelessWidget {
       width: width,
       height: height,
       fit: fit,
+      errorWidget: (context, url, error){
+        return Container(
+          color: Colors.grey,
+          child: const Center(
+            child: Icon(
+              Icons.error,
+              color: Colors.red,
+            ),
+          ),
+        );
+      },
     );
   }
 }

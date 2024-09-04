@@ -29,13 +29,13 @@ class StarRatingWidget extends StatelessWidget {
     } else if (index > rating - 1 && index < rating) {
       icon = Icon(
         Icons.star_half,
-        color: context.theme.primaryColor,
+        color: context.theme.colorScheme.primary,
         size: size ?? ratingStarSizeRelativeToScreen,
       );
     } else {
       icon = Icon(
         Icons.star,
-        color: context.theme.primaryColor,
+        color: context.theme.colorScheme.primary,
         size: size ?? ratingStarSizeRelativeToScreen,
       );
     }

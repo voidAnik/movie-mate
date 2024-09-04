@@ -18,6 +18,7 @@ dependencies:
   # firebase dependencies
   firebase_core: ^3.4.0
   firebase_crashlytics: ^4.1.0
+  cloud_firestore: ^5.4.0
 
   # for fonts
   google_fonts: ^6.2.1
@@ -60,6 +61,8 @@ dependencies:
   shape_of_view_null_safe: ^3.0.0
   # to redirect urls
   url_launcher: ^6.3.0
+  # to generate uuid
+  uuid: ^4.5.0
 
 dev_dependencies:
   flutter_test:

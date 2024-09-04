@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_mate/core/constants/strings.dart';
 import 'package:movie_mate/core/extensions/context_extension.dart';
 
 class TitleWidget extends StatelessWidget {
@@ -7,7 +8,7 @@ class TitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('MovieMate',
+    return Text(title,
       style: GoogleFonts.aldrich(
           fontSize: context.width * 0.05,
           color: Colors.red

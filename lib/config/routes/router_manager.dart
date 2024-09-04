@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_mate/app/flavors.dart';
 import 'package:movie_mate/config/routes/navigator_observer.dart';
+import 'package:movie_mate/features/favorites/presentation/pages/favorite_movie_page.dart';
 import 'package:movie_mate/features/home/domain/entities/movie.dart';
 import 'package:movie_mate/features/home/presentation/pages/home_page.dart';
 import 'package:movie_mate/features/movie_details/presentation/pages/movie_details_page.dart';
@@ -23,6 +24,10 @@ class RouterManager {
         GoRoute(
           path: MovieDetailsPage.path,
           builder: (context, state) => MovieDetailsPage( movie: state.extra as Movie),
+        ),
+        GoRoute(
+          path: FavoriteMoviePage.path,
+          builder: (context, state) => const FavoriteMoviePage(),
         ),
 
       ]);

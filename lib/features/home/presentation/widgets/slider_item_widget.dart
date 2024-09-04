@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_mate/core/extensions/context_extension.dart';
 import 'package:movie_mate/core/injection/injection_container.dart';
+import 'package:movie_mate/core/language/generated/locale_keys.g.dart';
 import 'package:movie_mate/core/utils/genre_service.dart';
 import 'package:movie_mate/core/widgets/network_image.dart';
 import 'package:movie_mate/features/home/domain/entities/movie.dart';
@@ -91,9 +93,9 @@ class SliderItemWidget extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text('Upcoming',
+                    child: Text(LocaleKeys.upcoming.tr(),
                       style: context.textStyle.headlineSmall!.copyWith(
-                        color: context.theme.primaryColor,
+                        color: context.theme.colorScheme.primary,
                         fontSize: 12
                       ),
                     ),
