@@ -6,4 +6,5 @@ abstract class ApiUrl{
   static String genreList = '/3/genre/movie/list';
   static String movieImages = '/3/movie/{movie_id}/images';
   static String movieDetails = '/3/movie/';
+  static String movieSearch = '/3/search/movie';
 }

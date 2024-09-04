@@ -8,6 +8,7 @@ import 'package:movie_mate/features/home/data/models/movie_model.dart';
 
 abstract class HomeLocalDataProvider{
   Future<List<MovieModel>> getMovies({required String type, required int page});
+  Future<List<MovieModel>> searchMovies({required String query});
   Future<void> cacheMovies({required List<MovieModel> movies, required String type, required int page});
   Future<List<GenreModel>> getGenres();
   Future<void> cacheGenres({required List<GenreModel> genres});
@@ -57,6 +58,17 @@ class HomeLocalDataProviderImpl extends HomeLocalDataProvider{
       await genreDao.insertGenres(genres);
     } catch (e) {
       log('local data insert error: $e');
+      throw CacheException();
+    }
+  }
+
+  @override
+  Future<List<MovieModel>> searchMovies({required String query}) async {
+    try {
+      List<MovieModel> movies = await movieDao.searchMovies(query);
+      return movies;
+    } catch (e) {
+      log('local data fetch error: $e');
       throw CacheException();
     }
   }

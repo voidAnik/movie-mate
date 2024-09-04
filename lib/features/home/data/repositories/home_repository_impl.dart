@@ -74,4 +74,23 @@ class HomeRepositoryImpl extends HomeRepository{
     localDataProvider.cacheGenres(genres: genres);
   }
 
+  @override
+  Future<Either<Failure, List<MovieModel>>> searchMovies({required String query}) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final movies = await remoteDataProvider.searchMovies(query);
+        return Right(movies);
+      } catch(e) {
+        return ReturnFailure<List<MovieModel>>()(e as Exception);
+      }
+    } else {
+      try {
+        final movies = await localDataProvider.searchMovies(query: query);
+        return Right(movies);
+      } on CacheException {
+        return Left(CacheFailure());
+      }
+    }
+  }
+
 }

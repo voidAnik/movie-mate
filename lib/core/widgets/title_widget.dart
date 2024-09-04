@@ -7,7 +7,7 @@ class TitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('MovieMeta',
+    return Text('MovieMate',
       style: GoogleFonts.aldrich(
           fontSize: context.width * 0.05,
           color: Colors.red

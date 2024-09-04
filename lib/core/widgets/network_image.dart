@@ -6,7 +6,8 @@ class CustomNetworkImage extends StatelessWidget {
   final double width;
   final double height;
   final String imageUrl;
-  const CustomNetworkImage({super.key, required this.width, required this.height, required this.imageUrl});
+  final BoxFit fit;
+  const CustomNetworkImage({super.key, required this.width, required this.height, required this.imageUrl, this.fit = BoxFit.cover});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class CustomNetworkImage extends StatelessWidget {
       imageUrl: imageUrl,
       width: width,
       height: height,
-      fit: BoxFit.cover,
+      fit: fit,
     );
   }
 }

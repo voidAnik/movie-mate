@@ -89,6 +89,15 @@ class SliderItemWidget extends StatelessWidget {
                       ],
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('Upcoming',
+                      style: context.textStyle.headlineSmall!.copyWith(
+                        color: context.theme.primaryColor,
+                        fontSize: 12
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

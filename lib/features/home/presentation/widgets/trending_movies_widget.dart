@@ -10,7 +10,7 @@ import 'package:movie_mate/core/utils/genre_service.dart';
 import 'package:movie_mate/core/widgets/error_widget.dart';
 import 'package:movie_mate/core/widgets/network_image.dart';
 import 'package:movie_mate/features/home/domain/entities/movie.dart';
-import 'package:movie_mate/features/home/presentation/blocs/get_trending_movies_cubit.dart';
+import 'package:movie_mate/features/home/presentation/blocs/trending_movies_cubit.dart';
 import 'package:movie_mate/features/home/presentation/widgets/movie_list_item_widget.dart';
 
 class TrendingMoviesWidget extends StatelessWidget {
@@ -20,13 +20,13 @@ class TrendingMoviesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<GetTrendingMoviesCubit>()..fetchMovies(),
+      create: (context) => getIt<TrendingMoviesCubit>()..fetchMovies(),
       child: _createView(context),
     );
   }
 
   _createView(BuildContext context) {
-    return BlocBuilder<GetTrendingMoviesCubit, CommonApiState>(
+    return BlocBuilder<TrendingMoviesCubit, CommonApiState>(
         builder: (context, state) {
           if (state is ApiInitial || state is ApiLoading) {
             return const Center(

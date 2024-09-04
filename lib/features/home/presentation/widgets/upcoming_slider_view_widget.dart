@@ -10,7 +10,7 @@ import 'package:movie_mate/core/utils/genre_service.dart';
 import 'package:movie_mate/core/widgets/error_widget.dart';
 import 'package:movie_mate/core/widgets/network_image.dart';
 import 'package:movie_mate/features/home/domain/entities/movie.dart';
-import 'package:movie_mate/features/home/presentation/blocs/get_upcoming_movies_cubit.dart';
+import 'package:movie_mate/features/home/presentation/blocs/upcoming_movies_cubit.dart';
 import 'package:movie_mate/features/home/presentation/widgets/slider_item_widget.dart';
 
 
@@ -23,14 +23,14 @@ class UpcomingSliderView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) {
-        return getIt<GetUpcomingMoviesCubit>()..fetchMovies();
+        return getIt<UpcomingMoviesCubit>()..fetchMovies();
       },
       child: _createView(context),
     );
   }
 
   Widget _createView(BuildContext context) {
-    return BlocBuilder<GetUpcomingMoviesCubit, CommonApiState>(
+    return BlocBuilder<UpcomingMoviesCubit, CommonApiState>(
       builder: (context, state) {
         if (state is ApiInitial || state is ApiLoading) {
           return const Center(child: CircularProgressIndicator(color: Colors.black));

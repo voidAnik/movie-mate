@@ -10,6 +10,7 @@ abstract class HomeRemoteDataProvider{
   Future<List<MovieModel>> getTrendingMovies(int page);
   Future<List<MovieModel>> getUpcomingMovies(int page);
   Future<List<GenreModel>> getGenres();
+  Future<List<MovieModel>> searchMovies(String query);
 }
 
 class HomeRemoteDataProviderImpl extends HomeRemoteDataProvider{
@@ -48,6 +49,18 @@ class HomeRemoteDataProviderImpl extends HomeRemoteDataProvider{
     return ReturnResponse<List<GenreModel>>()(response,
             (data) => (data['genres'] as List)
             .map((json) => GenreModel.fromJson(json))
+            .toList());
+  }
+
+  @override
+  Future<List<MovieModel>> searchMovies(String query) async {
+    final response = await apiClient.get(ApiUrl.movieSearch, queryParameters: {
+      'query': query,
+    });
+
+    return ReturnResponse<List<MovieModel>>()(response,
+            (data) => (data['results'] as List)
+            .map((json) => MovieModel.fromJson(json))
             .toList());
   }
 

@@ -4,38 +4,38 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTextTheme{
 
   static TextTheme darkTextTheme = TextTheme(
-  headlineLarge: GoogleFonts.openSans(
+  headlineLarge: GoogleFonts.poppins(
   fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),
-  headlineMedium: GoogleFonts.openSans(
+  headlineMedium: GoogleFonts.poppins(
   fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.white),
-  headlineSmall: GoogleFonts.openSans(
+  headlineSmall: GoogleFonts.poppins(
   fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.white),
-  titleLarge: GoogleFonts.openSans(
+  titleLarge: GoogleFonts.poppins(
   fontSize: 18.0, fontWeight: FontWeight.w600, color: Colors.white),
-  titleMedium: GoogleFonts.openSans(
+  titleMedium: GoogleFonts.poppins(
   fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.white),
-  titleSmall: GoogleFonts.openSans(
+  titleSmall: GoogleFonts.poppins(
   fontSize: 14.0, fontWeight: FontWeight.w500, color: Colors.white),
-  bodyLarge: GoogleFonts.openSans(fontSize: 16.0, color: Colors.white),
-  bodyMedium: GoogleFonts.openSans(fontSize: 14.0, color: Colors.white),
-  bodySmall: GoogleFonts.openSans(fontSize: 12.0, color: Colors.white),
+  bodyLarge: GoogleFonts.poppins(fontSize: 16.0, color: Colors.white),
+  bodyMedium: GoogleFonts.poppins(fontSize: 14.0, color: Colors.white),
+  bodySmall: GoogleFonts.poppins(fontSize: 12.0, color: Colors.white),
   );
 
   static TextTheme lightTextTheme = TextTheme(
-    headlineLarge: GoogleFonts.openSans(
+    headlineLarge: GoogleFonts.poppins(
         fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.black),
-    headlineMedium: GoogleFonts.openSans(
+    headlineMedium: GoogleFonts.poppins(
         fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.black),
-    headlineSmall: GoogleFonts.openSans(
+    headlineSmall: GoogleFonts.poppins(
         fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.black),
-    titleLarge: GoogleFonts.openSans(
+    titleLarge: GoogleFonts.poppins(
         fontSize: 20.0, fontWeight: FontWeight.w600, color: Colors.black),
-    titleMedium: GoogleFonts.openSans(
+    titleMedium: GoogleFonts.poppins(
         fontSize: 16.0, fontWeight: FontWeight.w500, color: Colors.black),
-    titleSmall: GoogleFonts.openSans(
+    titleSmall: GoogleFonts.poppins(
         fontSize: 14.0, fontWeight: FontWeight.w500, color: Colors.black),
-    bodyLarge: GoogleFonts.openSans(fontSize: 16.0, color: Colors.black),
-    bodyMedium: GoogleFonts.openSans(fontSize: 14.0, color: Colors.black),
-    bodySmall: GoogleFonts.openSans(fontSize: 12.0, color: Colors.black),
+    bodyLarge: GoogleFonts.poppins(fontSize: 16.0, color: Colors.black),
+    bodyMedium: GoogleFonts.poppins(fontSize: 14.0, color: Colors.black),
+    bodySmall: GoogleFonts.poppins(fontSize: 12.0, color: Colors.black),
   );
 }

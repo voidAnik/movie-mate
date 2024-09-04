@@ -14,8 +14,10 @@ import 'package:movie_mate/features/home/data/repositories/home_repository_impl.
 import 'package:movie_mate/features/home/domain/repositories/home_repository.dart';
 import 'package:movie_mate/features/home/domain/use_cases/get_trending_movies.dart';
 import 'package:movie_mate/features/home/domain/use_cases/get_upcoming_movies.dart';
-import 'package:movie_mate/features/home/presentation/blocs/get_trending_movies_cubit.dart';
-import 'package:movie_mate/features/home/presentation/blocs/get_upcoming_movies_cubit.dart';
+import 'package:movie_mate/features/home/domain/use_cases/search_movies.dart';
+import 'package:movie_mate/features/home/presentation/blocs/movie_search_cubit.dart';
+import 'package:movie_mate/features/home/presentation/blocs/trending_movies_cubit.dart';
+import 'package:movie_mate/features/home/presentation/blocs/upcoming_movies_cubit.dart';
 import 'package:movie_mate/features/movie_details/data/data_sources/movie_detail_remote_data_provider.dart';
 import 'package:movie_mate/features/movie_details/data/repositories/movie_detail_repository_impl.dart';
 import 'package:movie_mate/features/movie_details/domain/repositories/movie_detail_repository.dart';
@@ -61,14 +63,16 @@ Future<void> init() async {
     ..registerLazySingleton(()=> GetTrendingMovies(getIt()))
     ..registerLazySingleton(()=> GetUpcomingMovies(getIt()))
     ..registerLazySingleton(()=> GetMovieImages(getIt()))
-    ..registerLazySingleton(()=> GetMovieDetails(getIt()));
+    ..registerLazySingleton(()=> GetMovieDetails(getIt()))
+    ..registerLazySingleton(()=> SearchMovies(getIt()));
 
   //* Blocs
   getIt
-    ..registerFactory(()=> GetTrendingMoviesCubit(getIt()))
-    ..registerFactory(()=> GetUpcomingMoviesCubit(getIt()))
+    ..registerFactory(()=> TrendingMoviesCubit(getIt()))
+    ..registerFactory(()=> UpcomingMoviesCubit(getIt()))
     ..registerFactory(()=> MovieImagesCubit(getIt()))
-    ..registerFactory(()=> MovieDetailsCubit(getIt()));
+    ..registerFactory(()=> MovieDetailsCubit(getIt()))
+    ..registerFactory(()=> MovieSearchCubit(getIt()));
 
 
 

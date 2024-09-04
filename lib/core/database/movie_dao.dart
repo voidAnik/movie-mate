@@ -34,4 +34,15 @@ class MovieDao {
 
     return result.map((e) => MovieModel.fromSql(e)).toList();
   }
+
+  Future<List<MovieModel>> searchMovies(String query) async {
+
+    final List<Map<String, dynamic>> results = await _db.query(
+      moviesTable,
+      where: 'title LIKE ? OR overview LIKE ?',
+      whereArgs: ['%$query%', '%$query%'],
+    );
+
+    return results.map((json) => MovieModel.fromJson(json)).toList();
+  }
 }
