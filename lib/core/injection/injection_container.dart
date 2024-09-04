@@ -8,6 +8,7 @@ import 'package:movie_mate/core/database/movie_dao.dart';
 import 'package:movie_mate/core/database/selected_genre_dao.dart';
 import 'package:movie_mate/core/network/api_client.dart';
 import 'package:movie_mate/core/utils/genre_service.dart';
+import 'package:movie_mate/core/utils/location_service.dart';
 import 'package:movie_mate/core/utils/network_info.dart';
 import 'package:movie_mate/core/utils/user_service.dart';
 import 'package:movie_mate/features/favorites/data/data_sources/favorite_local_data_provider.dart';
@@ -37,6 +38,9 @@ import 'package:movie_mate/features/movie_details/domain/use_cases/is_favorite.d
 import 'package:movie_mate/features/movie_details/presentation/blocs/add_favorite_cubit.dart';
 import 'package:movie_mate/features/movie_details/presentation/blocs/movie_details_cubit.dart';
 import 'package:movie_mate/features/movie_details/presentation/blocs/movie_images_cubit.dart';
+import 'package:movie_mate/features/nearby_theatre/data/data_sources/nearby_remote_data_provider.dart';
+import 'package:movie_mate/features/nearby_theatre/data/repositories/nearby_repository.dart';
+import 'package:movie_mate/features/nearby_theatre/presentation/blocs/nearby_theatres_cubit.dart';
 import 'package:uuid/uuid.dart';
 
 final getIt = GetIt.instance;
@@ -52,7 +56,8 @@ Future<void> init() async {
     ..registerLazySingleton(()=> GenreService())
     ..registerLazySingleton(() => FirebaseFirestore.instance)
     ..registerLazySingleton(() => const Uuid())
-    ..registerLazySingleton(()=> UserService(getIt(), getIt()));
+    ..registerLazySingleton(()=> UserService(getIt(), getIt()))
+    ..registerLazySingleton(()=> LocationService());
 
   //? database
   getIt.registerLazySingleton(()=> DatabaseManager());
@@ -69,13 +74,15 @@ Future<void> init() async {
     ..registerLazySingleton<HomeLocalDataProvider>(()=> HomeLocalDataProviderImpl(getIt(), getIt()))
     ..registerLazySingleton<MovieDetailRemoteDataProvider>(()=> MovieDetailRemoteDataProviderImpl(getIt()))
     ..registerLazySingleton<FavoriteRemoteDataProvider>(()=> FavoriteRemoteDataProviderImpl(getIt(), getIt()))
-    ..registerLazySingleton<FavoriteLocalDataProvider>(()=> FavoriteLocalDataProviderImpl(getIt()));
+    ..registerLazySingleton<FavoriteLocalDataProvider>(()=> FavoriteLocalDataProviderImpl(getIt()))
+    ..registerLazySingleton(()=> NearbyRemoteDataProvider(getIt()));
 
   //* Repositories
   getIt
       ..registerLazySingleton<HomeRepository>(()=> HomeRepositoryImpl(getIt(), getIt(), getIt()))
       ..registerLazySingleton<MovieDetailRepository>(()=> MovieDetailRepositoryImpl(getIt()))
-      ..registerLazySingleton<FavoriteMovieRepository>(()=> FavoriteMovieRepositoryImpl(getIt(), getIt(), getIt()));
+      ..registerLazySingleton<FavoriteMovieRepository>(()=> FavoriteMovieRepositoryImpl(getIt(), getIt(), getIt()))
+      ..registerLazySingleton(()=> NearbyRepository(getIt()));
 
 
   //* Use Cases
@@ -98,5 +105,6 @@ Future<void> init() async {
     ..registerFactory(()=> MovieDetailsCubit(getIt()))
     ..registerFactory(()=> MovieSearchCubit(getIt()))
     ..registerFactory(()=> FavoriteMoviesCubit(getIt(), getIt()))
-    ..registerFactory(()=> AddFavoriteCubit(getIt(), getIt(), getIt()));
+    ..registerFactory(()=> AddFavoriteCubit(getIt(), getIt(), getIt()))
+    ..registerFactory(()=> NearbyTheatresCubit(getIt(), getIt()));
 }

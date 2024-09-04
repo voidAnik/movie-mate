@@ -64,6 +64,12 @@ dependencies:
   # to generate uuid
   uuid: ^4.5.0
 
+  # maps
+  flutter_map: ^7.0.2
+  latlong2: ^0.9.1
+  geolocator: ^12.0.0
+  permission_handler: ^11.3.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

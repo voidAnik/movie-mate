@@ -24,7 +24,8 @@ class FavoriteMoviePage extends StatelessWidget {
   create: (context) => getIt<FavoriteMoviesCubit>()..fetchMovies(),
   child: Scaffold(
       appBar: AppBar(
-        title: Text(LocaleKeys.favoriteMovies.tr(), style: context.textStyle.titleMedium!.copyWith(
+        title: Text(LocaleKeys.favoriteMovies.tr(),
+            style: context.textStyle.titleMedium!.copyWith(
           fontSize: context.width * 0.05,
         )),
         centerTitle: true,
