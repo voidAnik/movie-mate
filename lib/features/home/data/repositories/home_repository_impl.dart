@@ -11,6 +11,7 @@ import 'package:movie_mate/features/home/data/data_sources/home_local_data_provi
 import 'package:movie_mate/features/home/data/data_sources/home_remote_data_provider.dart';
 import 'package:movie_mate/features/home/data/models/movie_model.dart';
 import 'package:movie_mate/features/home/domain/repositories/home_repository.dart';
+import 'package:movie_mate/features/settings/data/data_sources/settings_local_data_provider.dart';
 
 class HomeRepositoryImpl extends HomeRepository{
   final HomeRemoteDataProvider remoteDataProvider;
@@ -28,7 +29,10 @@ class HomeRepositoryImpl extends HomeRepository{
       try {
         final movies = await remoteDataProvider.getTrendingMovies(page);
         localDataProvider.cacheMovies(movies: movies, type: trendingType, page: page);
-        return Right(movies);
+
+        // filtering movies by genre selection
+        final filteredMovies = await _filterMoviesByGenre(movies);
+        return Right(filteredMovies);
       } catch(e) {
         return ReturnFailure<List<MovieModel>>()(e as Exception);
       }
@@ -51,6 +55,10 @@ class HomeRepositoryImpl extends HomeRepository{
         await _fetchAndCacheGenres();
         final movies = await remoteDataProvider.getUpcomingMovies(page);
         localDataProvider.cacheMovies(movies: movies, type: upcomingType, page: page);
+
+        // filtering movies by genre selection
+        final filteredMovies = await _filterMoviesByGenre(movies);
+        return Right(filteredMovies);
         return Right(movies);
       } catch(e) {
         return ReturnFailure<List<MovieModel>>()(e as Exception);
@@ -91,6 +99,20 @@ class HomeRepositoryImpl extends HomeRepository{
         return Left(CacheFailure());
       }
     }
+  }
+
+  Future<List<MovieModel>> _filterMoviesByGenre(List<MovieModel> movies) async {
+    final selectedGenres = await getIt<SettingsLocalDataProvider>().getSelectedGenres();
+
+    if (selectedGenres.isEmpty) {
+      // If no genres are selected, return the full list
+      return movies;
+    }
+
+    // Filter movies that have at least one matching genre with the selected genres
+    return movies.where((movie) {
+      return movie.genreIds.any((genreId) => selectedGenres.contains(genreId));
+    }).toList();
   }
 
 }
