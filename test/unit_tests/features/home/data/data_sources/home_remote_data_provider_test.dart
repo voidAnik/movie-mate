@@ -11,7 +11,7 @@ import 'package:movie_mate/features/home/data/data_sources/home_remote_data_prov
 import 'package:movie_mate/features/home/data/models/movie_model.dart';
 import 'package:movie_mate/features/home/data/models/genre_model.dart';
 
-import '../../../../fixtures/fixture_reader.dart';
+import '../../../../../fixtures/fixture_reader.dart';
 import 'home_remote_data_provider_test.mocks.dart';
 
 @GenerateMocks([ApiClient])
