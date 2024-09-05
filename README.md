@@ -34,9 +34,9 @@ Movie Mate is a Flutter-based mobile application designed to integrate with the 
 - **Trending Movies**: Displays a list of trending movies on the home screen with title, year of release, genre, and thumbnail.
 - **Upcoming Movies**: Shows a list of upcoming movies with similar details as the trending section, including title, year of release, genre, and thumbnail.
 - **Search Functionality**: Includes a search bar to find movies by title, showing results with movie titles, release years, and poster thumbnails.
-- **Movie Details**: Detailed view includes movie title, release year, genre, director, plot, full-size poster, Screenshots and a YouTube trailer. Also you can share the link to others.
-- **Favorites**: Users can mark movies as favorites. The app stores favorites locally for offline access and provides a screen to manage them.
-- **Genre Preferences**: Users can select favorite genres and filter movies by these genres in the trending and upcoming sections. Genre preferences are stored locally.
+- **Movie Details**: Detailed view includes movie title, release year, genre, director, plot, full-size poster, Screenshots and a YouTube trailer. Also, you can share the link to others.
+- **Favorites**: Users can mark movies as favorites. The app stores favorites locally for offline access and also stores in firestore and provides a screen to manage them.
+- **Genre Preferences**: Users can select favorite genres and filter movies by these genres in the trending and upcoming sections. Genre preferences are stored locally & in firebase if user online.
 
 ### Map and Nearby Theaters
 - **Map Integration**: Shows the user's current location and nearby movie theaters on a map. Markers display theater names, addresses, ratings, and distances from the user.
