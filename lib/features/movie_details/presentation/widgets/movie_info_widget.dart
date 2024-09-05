@@ -14,7 +14,6 @@ import 'package:movie_mate/features/movie_details/presentation/blocs/movie_detai
 import 'package:movie_mate/features/movie_details/presentation/widgets/shimmer_movie_info.dart';
 import 'package:movie_mate/features/movie_details/presentation/widgets/star_rating_widget.dart';
 
-
 class MovieInfoWidget extends StatelessWidget {
   final Movie movie;
 
@@ -24,27 +23,28 @@ class MovieInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-         BlocProvider(create: (_) => ExpandCubit()),
+        BlocProvider(create: (_) => ExpandCubit()),
       ],
       child: _createMovieInfo(context),
     );
   }
 
-Widget _createMovieInfo(BuildContext context){
-  return BlocBuilder<MovieDetailsCubit, CommonApiState>(
-    builder: (context, state) {
-      if (state is ApiInitial || state is ApiLoading) {
-        return const ShimmerMovieInfo();
-      } else if (state is ApiError) {
-        return ErrorMessage(message: state.message);
-      } else if (state is ApiSuccess) {
-        return _createMovieBody(context, state.response);
-      } else {
-        return ErrorMessage(message: LocaleKeys.unknownError.tr());
-      }
-    },
-  );
-}
+  Widget _createMovieInfo(BuildContext context) {
+    return BlocBuilder<MovieDetailsCubit, CommonApiState>(
+      builder: (context, state) {
+        if (state is ApiInitial || state is ApiLoading) {
+          return const ShimmerMovieInfo();
+        } else if (state is ApiError) {
+          return ErrorMessage(message: state.message);
+        } else if (state is ApiSuccess) {
+          return _createMovieBody(context, state.response);
+        } else {
+          return ErrorMessage(message: LocaleKeys.unknownError.tr());
+        }
+      },
+    );
+  }
+
   Widget _createMovieBody(BuildContext context, MovieDetailsModel movieInfo) {
     return Column(
       children: [
@@ -64,9 +64,8 @@ Widget _createMovieInfo(BuildContext context){
           movieInfo.genreNames,
           maxLines: 2,
           textAlign: TextAlign.center,
-          style: context.textStyle.bodyMedium!.copyWith(
-            color: context.theme.colorScheme.secondaryFixedDim
-          ),
+          style: context.textStyle.bodyMedium!
+              .copyWith(color: context.theme.colorScheme.secondaryFixedDim),
         ),
         const SizedBox(
           height: 8,
@@ -86,9 +85,13 @@ Widget _createMovieInfo(BuildContext context){
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text(''),
-            _columnItem(context, title: LocaleKeys.year.tr(), value: movieInfo.releasedYear),
-            _columnItem(context, title: LocaleKeys.country.tr(), value: movieInfo.country),
-            _columnItem(context, title: LocaleKeys.length.tr(), value: movieInfo.runtime.toString() ?? ''),
+            _columnItem(context,
+                title: LocaleKeys.year.tr(), value: movieInfo.releasedYear),
+            _columnItem(context,
+                title: LocaleKeys.country.tr(), value: movieInfo.country),
+            _columnItem(context,
+                title: LocaleKeys.length.tr(),
+                value: movieInfo.runtime.toString() ?? ''),
             const Text(''),
           ],
         ),
@@ -100,21 +103,22 @@ Widget _createMovieInfo(BuildContext context){
     );
   }
 
-  Column _columnItem(BuildContext context, {required String title, required String value}) {
+  Column _columnItem(BuildContext context,
+      {required String title, required String value}) {
     return Column(
-              children: [
-                Text(
-                  title,
-                  style: context.textStyle.bodyMedium!.copyWith(
-                    color: context.theme.colorScheme.secondaryFixedDim,
-                  ),
-                ),
-                Text(
-                  value,
-                  style: context.textStyle.titleMedium,
-                ),
-              ],
-            );
+      children: [
+        Text(
+          title,
+          style: context.textStyle.bodyMedium!.copyWith(
+            color: context.theme.colorScheme.secondaryFixedDim,
+          ),
+        ),
+        Text(
+          value,
+          style: context.textStyle.titleMedium,
+        ),
+      ],
+    );
   }
 
   Widget _createMovieOverview(BuildContext context, String overview) {
@@ -141,5 +145,4 @@ Widget _createMovieInfo(BuildContext context){
       },
     );
   }
-
 }

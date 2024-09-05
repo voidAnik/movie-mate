@@ -13,6 +13,9 @@ import 'package:movie_mate/features/movie_details/presentation/blocs/movie_detai
 import 'package:shape_of_view_null_safe/shape_of_view_null_safe.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:flutter_share/flutter_share.dart';
+import 'package:share_plus/share_plus.dart';
+
 class HeaderWidget extends StatelessWidget {
   final Movie movie;
   const HeaderWidget({super.key, required this.movie});
@@ -91,7 +94,11 @@ class HeaderWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _headerIcon(context, icon: const Icon(Icons.add_rounded),
-                onPressed: (){}),
+                onPressed: (){
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Not Implemented!')),
+                  );
+                }),
                 FractionalTranslation(
                   translation: const Offset(0.0, -0.2),
                   child: SizedBox(
@@ -118,7 +125,11 @@ class HeaderWidget extends StatelessWidget {
                   ),
                 ),
                 _headerIcon(context, icon:  const Icon(Icons.share_outlined),
-                    onPressed: (){}),
+                    onPressed: (){
+                  if(movieInfo!= null){
+                    Share.share('Check out this movie.. \nName: ${movieInfo.title} \nWebsite:${movieInfo.homepage}');
+                  }
+                    }),
               ],
             ),
           ),
@@ -126,6 +137,7 @@ class HeaderWidget extends StatelessWidget {
       },
     );
   }
+
 
   SizedBox _headerIcon(BuildContext context, {required VoidCallback onPressed, required Icon icon}) {
     return SizedBox(

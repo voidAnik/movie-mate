@@ -57,7 +57,7 @@ class ScreenshotViewWidget extends StatelessWidget {
 
   Widget _createScreenshotView(BuildContext context, List<MovieImage> backdrops) {
     return SizedBox(
-      height: context.width * 0.3,
+      height: context.width * 0.35,
       child: ListView.separated(
         itemBuilder: (BuildContext context, int index) {
           return _createScreenshotItem(context, backdrops[index]);
@@ -92,7 +92,7 @@ class ScreenshotViewWidget extends StatelessWidget {
   }
 
   Widget _createScreenshotItem(BuildContext context, MovieImage img) {
-    final width = context.width / 2.4;
+    final width = context.width / 2.2;
     return Container(
       width: width,
       height: double.infinity,

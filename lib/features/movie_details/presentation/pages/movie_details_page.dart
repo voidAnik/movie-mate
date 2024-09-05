@@ -33,11 +33,8 @@ class MovieDetailsPage extends StatelessWidget {
             ..getIsFavorite(movieId: movie.id),
         ),
       ],
-      child: WillPopScope(
-        child: Scaffold(
-          body: _createDetailBody(context),
-        ),
-        onWillPop: () async => true,
+      child: Scaffold(
+        body: _createDetailBody(context),
       ),
     );
   }
@@ -61,7 +58,7 @@ class MovieDetailsPage extends StatelessWidget {
                   children: [
                     HeaderWidget(movie: movie),
                     MovieInfoWidget(movie: movie),
-                    const Divider(height: 8.0, color: Colors.transparent),
+                    const Divider(height: 16.0, color: Colors.transparent),
                     ScreenshotViewWidget(
                       movieId: movie.id,
                     ),
