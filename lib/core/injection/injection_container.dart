@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:movie_mate/core/blocs/theme_cubit.dart';
 import 'package:movie_mate/core/database/database_manager.dart';
 import 'package:movie_mate/core/database/favorite_movie_dao.dart';
 import 'package:movie_mate/core/database/genre_dao.dart';
@@ -64,7 +65,8 @@ Future<void> init() async {
     ..registerLazySingleton(() => FirebaseFirestore.instance)
     ..registerLazySingleton(() => const Uuid())
     ..registerLazySingleton(()=> UserService(getIt(), getIt()))
-    ..registerLazySingleton(()=> LocationService());
+    ..registerLazySingleton(()=> LocationService())
+  ..registerFactory(()=> ThemeCubit());
 
   //? database
   getIt.registerLazySingleton(()=> DatabaseManager());

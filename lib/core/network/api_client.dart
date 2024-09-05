@@ -10,7 +10,7 @@ class ApiClient {
       BaseOptions(
         baseUrl: ApiUrl.baseUrl,
         headers: {
-          "Authorization": "Bearer YOUR_TOKEN",
+          "Authorization": "Bearer ${ApiUrl.TMDBAccessToken}",
           "Content-Type": "application/json"},
       ),
     );

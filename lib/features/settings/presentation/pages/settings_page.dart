@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:movie_mate/core/blocs/theme_cubit.dart';
 import 'package:movie_mate/core/extensions/context_extension.dart';
 import 'package:movie_mate/core/injection/injection_container.dart';
 import 'package:movie_mate/core/language/generated/locale_keys.g.dart';
@@ -11,8 +12,10 @@ import 'package:movie_mate/core/widgets/shimmer_loading.dart';
 import 'package:movie_mate/features/favorites/presentation/blocs/favorite_movies_cubit.dart';
 import 'package:movie_mate/features/settings/presentation/blocs/selected_genre_cubit.dart';
 import 'package:movie_mate/features/settings/presentation/pages/genre_selection_widget.dart';
+
 class SettingsPage extends StatelessWidget {
   static const String path = '/settings_page';
+
   const SettingsPage({super.key});
 
   @override
@@ -36,16 +39,34 @@ class SettingsView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(LocaleKeys.settings.tr(),
-            style: context.textStyle.titleMedium!.copyWith(
-              fontSize: context.width * 0.05,
-            ),
+        title: Text(
+          LocaleKeys.settings.tr(),
+          style: context.textStyle.titleMedium!.copyWith(
+            fontSize: context.width * 0.05,
+          ),
         ),
       ),
       body: ListView(
         padding: const EdgeInsets.only(top: 16),
         children: [
           const LanguageSelector(),
+          const Divider(),
+          BlocBuilder<ThemeCubit, ThemeMode>(builder: (context, themeMode) {
+            return SwitchListTile(
+              title: Text('Theme',
+                style: context.textStyle.titleMedium,),
+              subtitle: Text(
+                themeMode == ThemeMode.light
+                    ? 'Light'
+                    : 'Dark',
+                style: context.textStyle.titleSmall,
+              ),
+              value: themeMode == ThemeMode.dark,
+              onChanged: (value) {
+                context.read<ThemeCubit>().toggleTheme();
+              },
+            );
+          }),
           const Divider(),
           BlocBuilder<SelectedGenreCubit, DataState>(
             builder: (context, state) {
@@ -82,7 +103,10 @@ class LanguageSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text('Language', style: context.textStyle.titleMedium,),
+      title: Text(
+        'Language',
+        style: context.textStyle.titleMedium,
+      ),
       trailing: DropdownButton<String>(
         value: context.locale.languageCode,
         items: const [
@@ -99,5 +123,3 @@ class LanguageSelector extends StatelessWidget {
     );
   }
 }
-
-
