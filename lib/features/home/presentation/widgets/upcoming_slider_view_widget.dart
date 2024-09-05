@@ -1,21 +1,16 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_mate/core/blocs/common_api_state.dart';
-import 'package:movie_mate/core/extensions/context_extension.dart';
 import 'package:movie_mate/core/injection/injection_container.dart';
-import 'package:movie_mate/core/utils/genre_service.dart';
 import 'package:movie_mate/core/widgets/error_widget.dart';
-import 'package:movie_mate/core/widgets/network_image.dart';
-import 'package:movie_mate/core/widgets/shimmer_loading.dart';
 import 'package:movie_mate/features/home/domain/entities/movie.dart';
 import 'package:movie_mate/features/home/presentation/blocs/upcoming_movies_cubit.dart';
 import 'package:movie_mate/features/home/presentation/widgets/shimmer_slider_item.dart';
 import 'package:movie_mate/features/home/presentation/widgets/slider_item_widget.dart';
-import 'package:shimmer/shimmer.dart';
-
 
 class UpcomingSliderView extends StatelessWidget {
   final Function(Movie) onPressedMovie;
@@ -41,7 +36,7 @@ class UpcomingSliderView extends StatelessWidget {
           return ErrorMessage(message: state.message);
         } else if (state is ApiSuccess<List<Movie>>) {
           final movies = state.response;
-          return _createSlider(movies);
+          return _createSlider(context, movies);
         } else {
           return const Spacer();
         }
@@ -49,18 +44,16 @@ class UpcomingSliderView extends StatelessWidget {
     );
   }
 
-  CarouselSlider _createSlider(List<Movie> movies) {
+  CarouselSlider _createSlider(BuildContext context, List<Movie> movies) {
     return CarouselSlider.builder(
-          itemCount: movies.length,
-          itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
-            return SliderItemWidget(movie: movies[itemIndex], onPressed: ()=> onPressedMovie(movies[itemIndex]),);
-          },
-          options: _getCarouselOptions(),
+      itemCount: movies.length,
+      itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
+        return SliderItemWidget(
+          movie: movies[itemIndex],
+          onPressed: () => onPressedMovie(movies[itemIndex]),
         );
-  }
-
-  CarouselOptions _getCarouselOptions() {
-    return CarouselOptions(
+      },
+      options: CarouselOptions(
           enableInfiniteScroll: true,
           autoPlay: true,
           autoPlayInterval: const Duration(seconds: 5),
@@ -68,7 +61,13 @@ class UpcomingSliderView extends StatelessWidget {
           pauseAutoPlayOnTouch: true,
           viewportFraction: 0.8,
           enlargeCenterPage: true,
-        );
+          onPageChanged: (index, reason) {
+            log('cursol page index: $index');
+            if (index == movies.length - 1) {
+              context.read<UpcomingMoviesCubit>().loadMoreMovies();
+            }
+          }),
+    );
   }
 
   CarouselSlider _createShimmerSlider(int length) {
@@ -77,10 +76,15 @@ class UpcomingSliderView extends StatelessWidget {
       itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
         return const ShimmerSliderItem();
       },
-      options: _getCarouselOptions(),
+      options: CarouselOptions(
+        enableInfiniteScroll: true,
+        autoPlay: true,
+        autoPlayInterval: const Duration(seconds: 5),
+        autoPlayAnimationDuration: const Duration(milliseconds: 800),
+        pauseAutoPlayOnTouch: true,
+        viewportFraction: 0.8,
+        enlargeCenterPage: true,
+      ),
     );
   }
-
 }
-
-
