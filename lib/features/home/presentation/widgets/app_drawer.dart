@@ -8,6 +8,7 @@ import 'package:movie_mate/core/extensions/context_extension.dart';
 import 'package:movie_mate/core/language/generated/locale_keys.g.dart';
 import 'package:movie_mate/features/favorites/presentation/pages/favorite_movie_page.dart';
 import 'package:movie_mate/features/nearby_theatre/presentation/pages/nearby_theatres_page.dart';
+import 'package:movie_mate/features/settings/presentation/pages/settings_page.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -129,5 +130,7 @@ class AppDrawer extends StatelessWidget {
     context.push(NearbyTheatersPage.path);
   }
 
-  void _navigateToSettingsPage(BuildContext context) {}
+  void _navigateToSettingsPage(BuildContext context) {
+    context.push(SettingsPage.path);
+  }
 }

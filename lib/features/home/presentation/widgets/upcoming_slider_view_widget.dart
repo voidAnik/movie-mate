@@ -62,7 +62,6 @@ class UpcomingSliderView extends StatelessWidget {
           viewportFraction: 0.8,
           enlargeCenterPage: true,
           onPageChanged: (index, reason) {
-            log('cursol page index: $index');
             if (index == movies.length - 1) {
               context.read<UpcomingMoviesCubit>().loadMoreMovies();
             }

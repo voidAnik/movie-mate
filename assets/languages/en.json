@@ -12,5 +12,10 @@
  "favoriteMovies": "Favorite Movies",
  "nearbyTheatres": "Nearby Theaters",
  "settings": "Settings",
- "upcoming": "Upcoming"
+ "upcoming": "Upcoming",
+ "language": "Language",
+ "selectGenre": "Select Genres",
+ "save": "Save"
+
+
 }

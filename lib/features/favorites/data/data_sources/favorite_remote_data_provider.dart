@@ -26,8 +26,8 @@ class FavoriteRemoteDataProviderImpl extends FavoriteRemoteDataProvider{
   Future<void> deleteFavorite({required int movieId}) async {
     try {
       final userId = await _userService.getOrCreateUserUuid();
-      await _fireStore.collection(FirebaseConst.users).doc(userId)
-          .collection(FirebaseConst.favoriteMovies).doc(movieId.toString())
+      await _fireStore.collection(FireStoreConst.users).doc(userId)
+          .collection(FireStoreConst.favoriteMovies).doc(movieId.toString())
           .delete();
     } catch (e) {
       throw ApiException(error: 'Failed to remove favorite movie: $e');
@@ -38,10 +38,10 @@ class FavoriteRemoteDataProviderImpl extends FavoriteRemoteDataProvider{
   Future<void> saveFavorite({required MovieModel movie}) async {
     final userId = await _userService.getOrCreateUserUuid();
     try {
-      await _fireStore.collection(FirebaseConst.users).doc(userId)
-          .collection(FirebaseConst.favoriteMovies).doc(movie.id.toString())
+      await _fireStore.collection(FireStoreConst.users).doc(userId)
+          .collection(FireStoreConst.favoriteMovies).doc(movie.id.toString())
           .set({
-        FirebaseConst.movieData: movie.toJson(),
+        FireStoreConst.movieData: movie.toJson(),
       });
     } catch (e) {
       throw ApiException(error: 'Failed to save favorite movie: $e');
@@ -53,10 +53,10 @@ class FavoriteRemoteDataProviderImpl extends FavoriteRemoteDataProvider{
     final userId = await _userService.getOrCreateUserUuid();
     try {
       final snapshot = await _fireStore.collection('users').doc(userId)
-          .collection(FirebaseConst.favoriteMovies).get();
-      log('firebase movie: ${snapshot.docs}');
+          .collection(FireStoreConst.favoriteMovies).get();
+
       return snapshot.docs.map((doc) {
-        final movieData = doc.data()[FirebaseConst.movieData] as Map<String, dynamic>;
+        final movieData = doc.data()[FireStoreConst.movieData] as Map<String, dynamic>;
         return MovieModel.fromCache(movieData);
       }).toList();
     } catch (e) {
@@ -69,9 +69,9 @@ class FavoriteRemoteDataProviderImpl extends FavoriteRemoteDataProvider{
   Future<bool> isFavorite(int movieId) async {
     final userId = await _userService.getOrCreateUserUuid();
     final docSnapshot = await _fireStore
-        .collection(FirebaseConst.users)
+        .collection(FireStoreConst.users)
         .doc(userId)
-        .collection(FirebaseConst.favoriteMovies)
+        .collection(FireStoreConst.favoriteMovies)
         .doc(movieId.toString())
         .get();
     return docSnapshot.exists;

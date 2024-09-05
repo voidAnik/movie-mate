@@ -9,6 +9,7 @@ import 'package:movie_mate/features/home/domain/entities/movie.dart';
 import 'package:movie_mate/features/home/presentation/pages/home_page.dart';
 import 'package:movie_mate/features/movie_details/presentation/pages/movie_details_page.dart';
 import 'package:movie_mate/features/nearby_theatre/presentation/pages/nearby_theatres_page.dart';
+import 'package:movie_mate/features/settings/presentation/pages/settings_page.dart';
 
 class RouterManager {
   static final config = GoRouter(
@@ -33,6 +34,10 @@ class RouterManager {
         GoRoute(
           path: NearbyTheatersPage.path,
           builder: (context, state) => const NearbyTheatersPage(),
+        ),
+        GoRoute(
+          path: SettingsPage.path,
+          builder: (context, state) => const SettingsPage(),
         ),
 
       ]);

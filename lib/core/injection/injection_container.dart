@@ -41,6 +41,13 @@ import 'package:movie_mate/features/movie_details/presentation/blocs/movie_image
 import 'package:movie_mate/features/nearby_theatre/data/data_sources/nearby_remote_data_provider.dart';
 import 'package:movie_mate/features/nearby_theatre/data/repositories/nearby_repository.dart';
 import 'package:movie_mate/features/nearby_theatre/presentation/blocs/nearby_theatres_cubit.dart';
+import 'package:movie_mate/features/settings/data/data_sources/settings_local_data_provider.dart';
+import 'package:movie_mate/features/settings/data/data_sources/settings_remote_data_provider.dart';
+import 'package:movie_mate/features/settings/data/repositories/settings_repository_impl.dart';
+import 'package:movie_mate/features/settings/domain/repositories/settings_repository.dart';
+import 'package:movie_mate/features/settings/domain/use_cases/get_selected_genres.dart';
+import 'package:movie_mate/features/settings/domain/use_cases/save_selected_genres.dart';
+import 'package:movie_mate/features/settings/presentation/blocs/selected_genre_cubit.dart';
 import 'package:uuid/uuid.dart';
 
 final getIt = GetIt.instance;
@@ -75,14 +82,17 @@ Future<void> init() async {
     ..registerLazySingleton<MovieDetailRemoteDataProvider>(()=> MovieDetailRemoteDataProviderImpl(getIt()))
     ..registerLazySingleton<FavoriteRemoteDataProvider>(()=> FavoriteRemoteDataProviderImpl(getIt(), getIt()))
     ..registerLazySingleton<FavoriteLocalDataProvider>(()=> FavoriteLocalDataProviderImpl(getIt()))
-    ..registerLazySingleton(()=> NearbyRemoteDataProvider(getIt()));
+    ..registerLazySingleton(()=> NearbyRemoteDataProvider(getIt()))
+    ..registerLazySingleton<SettingsRemoteDataProvider>(()=> SettingsRemoteDataProviderImpl(getIt(), getIt()))
+    ..registerLazySingleton<SettingsLocalDataProvider>(()=> SettingsLocalDataProviderImpl(getIt()));
 
   //* Repositories
   getIt
       ..registerLazySingleton<HomeRepository>(()=> HomeRepositoryImpl(getIt(), getIt(), getIt()))
       ..registerLazySingleton<MovieDetailRepository>(()=> MovieDetailRepositoryImpl(getIt()))
       ..registerLazySingleton<FavoriteMovieRepository>(()=> FavoriteMovieRepositoryImpl(getIt(), getIt(), getIt()))
-      ..registerLazySingleton(()=> NearbyRepository(getIt()));
+      ..registerLazySingleton(()=> NearbyRepository(getIt()))
+      ..registerLazySingleton<SettingsRepository>(()=> SettingsRepositoryImpl(getIt(), getIt(), getIt()));
 
 
   //* Use Cases
@@ -95,7 +105,9 @@ Future<void> init() async {
     ..registerLazySingleton(()=> GetFavoriteMovies(getIt()))
     ..registerLazySingleton(()=> SaveFavoriteMovie(getIt()))
     ..registerLazySingleton(()=> DeleteFavoriteMovie(getIt()))
-    ..registerLazySingleton(()=> IsFavorite(getIt()));
+    ..registerLazySingleton(()=> IsFavorite(getIt()))
+    ..registerLazySingleton(()=> GetSelectedGenres(getIt()))
+    ..registerLazySingleton(()=> SaveSelectedGenres(getIt()));
 
   //* Blocs
   getIt
@@ -106,5 +118,6 @@ Future<void> init() async {
     ..registerFactory(()=> MovieSearchCubit(getIt()))
     ..registerFactory(()=> FavoriteMoviesCubit(getIt(), getIt()))
     ..registerFactory(()=> AddFavoriteCubit(getIt(), getIt(), getIt()))
-    ..registerFactory(()=> NearbyTheatresCubit(getIt(), getIt()));
+    ..registerFactory(()=> NearbyTheatresCubit(getIt(), getIt()))
+    ..registerFactory(()=> SelectedGenreCubit(getIt(), getIt()));
 }

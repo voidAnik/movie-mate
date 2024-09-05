@@ -10,6 +10,8 @@ class GenreService {
     }
   }
 
+  Map<int, String> get genreMap => _genreMap;
+
   String getGenreName(int id) {
     return _genreMap[id] ?? 'Unknown';
   }

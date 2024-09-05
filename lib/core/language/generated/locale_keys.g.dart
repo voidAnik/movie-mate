@@ -15,5 +15,8 @@ abstract class  LocaleKeys {
   static const nearbyTheatres = 'nearbyTheatres';
   static const settings = 'settings';
   static const upcoming = 'upcoming';
+  static const language = 'language';
+  static const selectGenre = 'selectGenre';
+  static const save = 'save';
 
 }
