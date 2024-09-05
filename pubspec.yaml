@@ -80,6 +80,12 @@ dev_dependencies:
   # for different flavor integration
   flutter_flavorizr: ^2.2.3
 
+  # for test
+  mockito: ^5.4.4
+  test: ^1.25.7
+  build_runner: ^2.4.12
+  bloc_test: ^9.1.7
+
 
 flutter:
 

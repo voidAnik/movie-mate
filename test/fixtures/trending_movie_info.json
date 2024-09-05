@@ -1,0 +1,16 @@
+{
+  "id": 1,
+  "title": "Movie 1",
+  "original_title": "Original Movie 1",
+  "overview": "Overview of movie 1",
+  "poster_path": "/path1.jpg",
+  "backdrop_path": "/backdrop1.jpg",
+  "genre_ids": [1, 2],
+  "popularity": 100.0,
+  "release_date": "2024-01-01",
+  "vote_average": 8.0,
+  "vote_count": 200,
+  "adult": false,
+  "video": false,
+  "original_language": "en"
+}

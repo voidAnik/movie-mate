@@ -1,21 +1,24 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
-
-import '../error/exceptions.dart';
+import 'package:movie_mate/core/error/exceptions.dart';
 
 class ReturnResponse<T> {
   T call(Response<dynamic> response, T Function(dynamic json) fromJsonFunc) {
-    /*try {*/
-    if (response.statusCode! >= 200 && response.statusCode! <= 300) {
+    final statusCode = response.statusCode;
+
+    if (statusCode == null) {
+      throw ServerException(); // or a custom exception to handle null status code
+    }
+
+    if (statusCode >= 200 && statusCode <= 300) {
+      if (response.data == null) {
+        throw FormatException();
+      }
       return fromJsonFunc(response.data);
-    } else if (response.statusCode! >= 400 && response.statusCode! < 500) {
-      throw ApiException(error: response.data['status_message']);
+    } else if (statusCode >= 400 && statusCode < 500) {
+      final errorMessage = response.data?['status_message'] ?? 'Unknown error';
+      throw ApiException(error: errorMessage);
     } else {
       throw ServerException();
     }
-    /*} catch (e) {
-      debugPrint('Exception: $e');
-      throw FormatException();
-    }*/
   }
 }

@@ -33,7 +33,7 @@ class TrendingMoviesCubit extends CommonApiCubit<List<MovieModel>> {
         _movies.addAll(response);
       }
       // Append new movies to the existing list
-      emit(ApiSuccess(response: List.from(_movies)));
+      emit(ApiSuccess<List<MovieModel>>(response: List.from(_movies)));
 
       _hasMoreMovies = response.isNotEmpty;
       if (response.isNotEmpty) _currentPage++;

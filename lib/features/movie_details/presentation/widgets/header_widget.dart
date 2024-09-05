@@ -13,7 +13,6 @@ import 'package:movie_mate/features/movie_details/presentation/blocs/movie_detai
 import 'package:shape_of_view_null_safe/shape_of_view_null_safe.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:flutter_share/flutter_share.dart';
 import 'package:share_plus/share_plus.dart';
 
 class HeaderWidget extends StatelessWidget {
