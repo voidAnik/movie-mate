@@ -34,6 +34,9 @@ class UpcomingMoviesCubit extends CommonApiCubit<List<MovieModel>> {
         emit(ApiSuccess<List<MovieModel>>(response: List.from(_movies)));
 
         if (response.isNotEmpty) _currentPage++;
+        if(_movies.length < 10){
+          loadMoreMovies();
+        }
       },
     );
   }

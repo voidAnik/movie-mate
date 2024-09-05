@@ -37,6 +37,9 @@ class TrendingMoviesCubit extends CommonApiCubit<List<MovieModel>> {
 
       _hasMoreMovies = response.isNotEmpty;
       if (response.isNotEmpty) _currentPage++;
+      if(_movies.length < 10){
+        loadMoreMovies();
+      }
     });
   }
 

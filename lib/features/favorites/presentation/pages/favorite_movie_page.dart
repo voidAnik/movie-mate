@@ -11,6 +11,7 @@ import 'package:movie_mate/core/widgets/error_widget.dart';
 import 'package:movie_mate/core/widgets/network_image.dart';
 import 'package:movie_mate/features/favorites/presentation/blocs/favorite_movies_cubit.dart';
 import 'package:movie_mate/features/favorites/presentation/widgets/movie_list_tile_widget.dart';
+import 'package:movie_mate/features/favorites/presentation/widgets/shimmer_list_item.dart';
 import 'package:movie_mate/features/home/domain/entities/movie.dart';
 import 'package:movie_mate/features/movie_details/presentation/pages/movie_details_page.dart';
 
@@ -34,7 +35,7 @@ class FavoriteMoviePage extends StatelessWidget {
         builder: (context, state) {
           log('favorite state ${state.runtimeType}');
           if (state is DataLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return _createShimmerList(6);
           } else if(state is DataError){
             return ErrorMessage(message: state.error);
           }
@@ -79,6 +80,16 @@ class FavoriteMoviePage extends StatelessWidget {
               );
             },
           );
+  }
+
+  ListView _createShimmerList(int length) {
+    return ListView.builder(
+      padding: const EdgeInsets.only(top: 8.0),
+      itemCount: length,
+      itemBuilder: (context, index) {
+        return const ShimmerListItem();
+      },
+    );
   }
 
   _navigateToMovieDetailPage(BuildContext context, {required Movie movie}) {

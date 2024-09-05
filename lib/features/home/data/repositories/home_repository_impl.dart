@@ -103,6 +103,7 @@ class HomeRepositoryImpl extends HomeRepository{
 
   Future<List<MovieModel>> _filterMoviesByGenre(List<MovieModel> movies) async {
     final selectedGenres = await getIt<SettingsLocalDataProvider>().getSelectedGenres();
+    log('selected genre ids: $selectedGenres');
 
     if (selectedGenres.isEmpty) {
       // If no genres are selected, return the full list

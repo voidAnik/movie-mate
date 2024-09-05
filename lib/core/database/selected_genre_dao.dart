@@ -11,6 +11,13 @@ class UserSelectedGenreDao {
   Future<void> insertUserSelectedGenres(List<int> genreIds) async {
     final batch = _db.batch();
 
+    // Clear existing records
+    await _db.delete(
+      userSelectedGenresTable,
+      where: '$userSelectedGenreColumnGenreId IS NOT NULL',
+    );
+
+    // Insert new genres
     for (var genreId in genreIds) {
       batch.insert(
         userSelectedGenresTable,
