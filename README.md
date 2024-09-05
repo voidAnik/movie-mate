@@ -32,8 +32,9 @@ Movie Mate is a Flutter-based mobile application designed to integrate with the 
 ## Features
 ### Core Functionality
 - **Trending Movies**: Displays a list of trending movies on the home screen with title, year of release, genre, and thumbnail.
+- **Upcoming Movies**: Shows a list of upcoming movies with similar details as the trending section, including title, year of release, genre, and thumbnail.
 - **Search Functionality**: Includes a search bar to find movies by title, showing results with movie titles, release years, and poster thumbnails.
-- **Movie Details**: Detailed view includes movie title, release year, genre, director, plot, full-size poster, and a YouTube trailer if available.
+- **Movie Details**: Detailed view includes movie title, release year, genre, director, plot, full-size poster, Screenshots and a YouTube trailer. Also you can share the link to others.
 - **Favorites**: Users can mark movies as favorites. The app stores favorites locally for offline access and provides a screen to manage them.
 - **Genre Preferences**: Users can select favorite genres and filter movies by these genres in the trending and upcoming sections. Genre preferences are stored locally.
 
@@ -77,9 +78,15 @@ Movie Mate is a Flutter-based mobile application designed to integrate with the 
 
 ### Flavor Configuration
 - **Flavors**: Configured for development and production environments. Different build variants are used to test across various environments without affecting the production build.
+  
+### Dependency Injection
+**GetIt**: GetIt is utilized for dependency injection, managing and providing instances of services and repositories throughout the app, which improves modularity and testability.
+
+### Localization
+**Language Support**: The app supports multiple languages using EasyLocalization, allowing users to switch between different languages based on their preferences or system settings.
 
 ### Handling Data and Internet Connectivity
-- **Connectivity Check**: The app checks for internet connectivity and fetches data from the API using `Dio`. When offline, data is retrieved from the local `sqflite` database.
+- **Connectivity Check**: The app checks for internet connectivity and fetches data from the API using `Dio` or personalized data from firestore. When offline, data is retrieved from the local `sqflite` database.
 
 ## Installation
 1. Clone the repository:
