@@ -91,7 +91,7 @@ Movie Mate is a Flutter-based mobile application designed to integrate with the 
 ## Installation
 1. Clone the repository:
    ```terminal
-   git clone https://github.com/voidAnik/tr-store-demo
+   git clone https://github.com/voidAnik/movie-mate
    ```
 3. Navigate to the project directory and install dependencies:
    ```terminal
